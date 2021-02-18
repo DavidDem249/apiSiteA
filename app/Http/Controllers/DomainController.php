@@ -10,6 +10,12 @@ use App\Http\Resources\DomainCollection;
 
 class DomainController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index','show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +41,7 @@ class DomainController extends Controller
         //$img = Image::make($path)->resize(1200,695)->encode();
         $filename = time(). '.' .$path->getClientOriginalExtension();
         Storage::put($filename);
-        Storage::move($filename, 'public/store/' . $filename);
+        Storage::move($filename, 'public/domain/' . $filename);
 
         $domain = new Domain();
         $domain->title = $request->input('title');
@@ -59,7 +65,10 @@ class DomainController extends Controller
      */
     public function show(Domain $domain)
     {
-        return new ResourceDomain($domain);
+        //dd($domain->slug);
+        $slug = Domain::where('slug',$domain->slug)->first();
+        //dd($slug);
+        return new ResourceDomain($slug);
     }
 
     /**

@@ -7,7 +7,9 @@ use App\Http\Controllers\DomainController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PlanController;
-use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\DemandesController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FormateurController;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -32,16 +34,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-Route::middleware('auth:api')->group(function(){
+// Route::middleware('api')->group(function(){
 
-	Route::apiResource('store', StoreController::class)->middleware('auth');
-	Route::apiResource('domain', DomainController::class);
-	Route::apiResource('formation', FormationController::class);
-	Route::apiResource('module', ModuleController::class);
-	Route::apiResource('plan', PlanController::class);
-	Route::apiResource('demande', DemandeController::class);
+Route::apiResource('store', StoreController::class);
+Route::apiResource('domain', DomainController::class);
 
-});
+// Route::get('/domain/{slug}', [DomainController::class, 'show']);
+// Route::get('/domain', [DomainController::class, 'index']);
+// Route::post('/domain', [DomainController::class, 'store']);
+// Route::delete('/domain/{domain}', [DomainController::class, 'destroy']);
+
+Route::apiResource('formation', FormationController::class);
+Route::apiResource('module', ModuleController::class);
+Route::apiResource('plan', PlanController::class);
+Route::apiResource('demande', DemandesController::class);
+
+// });
+Route::get('formateur', [FormateurController::class, 'index']);
+
+Route::get('/contact', [ContactController::class, 'store']);
 
 
 Route::group([
@@ -51,7 +62,7 @@ Route::group([
 
 ], function ($router) {
 	Route::post('register', [AuthController::class, 'register'])->name('store.register');
-    Route::post('login', [AuthController::class, 'login'])->name('store.login');
+    Route::get('login', [AuthController::class, 'login'])->name('store.login');
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('me', [AuthController::class, 'me'])->name('me');

@@ -51,12 +51,12 @@ class AuthController extends Controller
 
         //$credentials = request(['email', 'password']);
 
-  //       $credentials = [
-		// 	'email' => 'admin@gmail.com',
-		// 	'password' => 'password',
-		// ];
+        $credentials = [
+			'email' => 'admin@gmail.com',
+			'password' => 'password',
+		];
 
-		$credentials = request()->only(['email', 'password']);
+		//$credentials = request()->only(['email', 'password']);
 
 		$token = auth()->attempt($credentials);
 

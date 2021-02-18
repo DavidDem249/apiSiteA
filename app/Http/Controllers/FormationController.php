@@ -8,6 +8,12 @@ use App\Http\Resources\Formation as ResourceFormation;
 
 class FormationController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('auth', ['except' => ['index','show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +38,7 @@ class FormationController extends Controller
         //$img = Image::make($path)->resize(1200,695)->encode();
         $filename = time(). '.' .$path->getClientOriginalExtension();
         Storage::put($filename);
-        Storage::move($filename, 'public/store/' . $filename);
+        Storage::move($filename, 'public/formation/' . $filename);
 
         $formation = new Formation();
         $formation->title = $request->input('title');

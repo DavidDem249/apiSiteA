@@ -8,6 +8,12 @@ use App\Http\Resources\Module as ResourceModule;
 
 class ModuleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index','show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,12 +33,18 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
+            'stat' => 'required',
+            'duration' => 'required',
+        ]);
 
         $path= $request->file('image');
         //$img = Image::make($path)->resize(1200,695)->encode();
         $filename = time(). '.' .$path->getClientOriginalExtension();
         Storage::put($filename);
-        Storage::move($filename, 'public/store/' . $filename);
+        Storage::move($filename, 'public/module/' . $filename);
         
         $module = new Module();
         $module->title = $request->input('title');

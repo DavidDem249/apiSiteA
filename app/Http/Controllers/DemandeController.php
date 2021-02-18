@@ -8,6 +8,12 @@ use App\Models\Demande;
 
 class DemandeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index','show','store']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +33,16 @@ class DemandeController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nom' => 'required|min:3',
+            'prenom' => 'required|min:3',
+            'email' => 'bail|required|email',
+            'phone' => 'required|min:3',
+            'prenom' => 'required|min:3',
+            'module' => 'required|numeric',
+        ]);
+        
         $demandeur = new Demande();
         $demandeur->nom = $request->input('nom');
         $demandeur->prenom = $request->input('prenom');
@@ -50,7 +66,7 @@ class DemandeController extends Controller
      */
     public function show($id)
     {
-        return new ResourceDemande($demande);
+        return new ResourceDemande($id);
     }
 
     /**
@@ -77,6 +93,10 @@ class DemandeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if($demande->delete()){
+          return response()->json([
+              'success' => 'Suppression éffectuée avec succès',
+          ]);
+        }
     }
 }

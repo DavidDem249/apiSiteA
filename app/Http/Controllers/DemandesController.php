@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Demande as ResourceDemande;
 use App\Models\Demande;
 
-class DemandeController extends Controller 
+class DemandesController extends Controller 
 {
+
+  public function __construct()
+  {
+      $this->middleware('auth', ['except' => ['index','show','store']]);
+  }
 
   /**
    * Display a listing of the resource.

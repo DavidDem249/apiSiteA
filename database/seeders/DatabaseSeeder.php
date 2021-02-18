@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
     		// FormationTableSeeder::class,
     		// ModuleTableSeeder::class,
     		// PlanTableSeeder::class,
-            DemandeTableSeeder::class,
+            //DemandeTableSeeder::class,
+            FormateurTableSeeder::class,
     	]);
 
         // \App\Models\User::factory(10)->create();

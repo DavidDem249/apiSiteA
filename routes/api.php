@@ -60,6 +60,8 @@ Route::get('formateur', [FormateurController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'store']);
 
 
+Route::post('/captcha/submit','RecaptchaController@recaptcha')->name('recaptcha');
+
 Route::group([
 
     'middleware' => 'api',

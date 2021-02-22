@@ -15,6 +15,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\DemandesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FormateurController;
+use App\Http\Controllers\RecaptchaController;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -60,7 +61,7 @@ Route::get('formateur', [FormateurController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'store']);
 
 
-Route::post('/captcha/submit','RecaptchaController@recaptcha')->name('recaptcha');
+Route::post('/captcha/submit',[RecaptchaController::class, 'recaptcha'])->name('recaptcha');
 
 Route::group([
 

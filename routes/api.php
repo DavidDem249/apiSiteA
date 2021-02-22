@@ -57,7 +57,7 @@ Route::apiResource('demande', DemandesController::class);
 // });
 Route::get('formateur', [FormateurController::class, 'index']);
 
-Route::get('/contact', [ContactController::class, 'store']);
+Route::post('/contact', [ContactController::class, 'store']);
 
 
 Route::group([

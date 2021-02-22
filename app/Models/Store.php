@@ -9,7 +9,7 @@ class Store extends Model
 
     protected $table = 'stores';
     public $timestamps = true;
-    protected $fillable = array('title', 'slug', 'image');
+    protected $guarded = [''];
 
     public function domains()
     {

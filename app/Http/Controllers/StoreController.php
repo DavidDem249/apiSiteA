@@ -39,16 +39,16 @@ class StoreController extends Controller
         //     ], 200);
         // }
         
-        $path= $request->file('image');
-        //$img = Image::make($path)->resize(1200,695)->encode();
-        $filename = time(). '.' .$path->getClientOriginalExtension();
-        Storage::put($filename);
-        Storage::move($filename, 'public/store/' . $filename);
+        // $path= $request->file('image');
+        // $img = Image::make($path)->resize(1200,695)->encode();
+        // $filename = time(). '.' .$path->getClientOriginalExtension();
+        // Storage::put($filename);
+        // Storage::move($filename, 'public/store/' . $filename);
 
         $store = new Store();
         $store->title = $request->input('title');
         $store->slug = Str::slug($request->input('title'));
-        $store->image = $filename;
+        $store->image = 'image';
         $store->save();
 
         if($store->save()){

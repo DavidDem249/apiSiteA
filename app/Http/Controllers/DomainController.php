@@ -37,16 +37,16 @@ class DomainController extends Controller
     public function store(Request $request)
     {
 
-        $path= $request->file('image');
-        //$img = Image::make($path)->resize(1200,695)->encode();
-        $filename = time(). '.' .$path->getClientOriginalExtension();
-        Storage::put($filename);
-        Storage::move($filename, 'public/domain/' . $filename);
+        // $path= $request->file('image');
+        // $img = Image::make($path)->resize(1200,695)->encode();
+        // $filename = time(). '.' .$path->getClientOriginalExtension();
+        // Storage::put($filename);
+        // Storage::move($filename, 'public/domain/' . $filename);
 
         $domain = new Domain();
         $domain->title = $request->input('title');
         $domain->slug = Str::slug($request->input('title'));
-        $domain->image = $filename;
+        $domain->image = 'image';
         $domain->store_id = $request->input('store');
         $domain->save();
 

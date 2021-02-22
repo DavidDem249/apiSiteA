@@ -40,16 +40,16 @@ class ModuleController extends Controller
             'duration' => 'required',
         ]);
 
-        $path= $request->file('image');
-        //$img = Image::make($path)->resize(1200,695)->encode();
-        $filename = time(). '.' .$path->getClientOriginalExtension();
-        Storage::put($filename);
-        Storage::move($filename, 'public/module/' . $filename);
+        // $path= $request->file('image');
+        // $img = Image::make($path)->resize(1200,695)->encode();
+        // $filename = time(). '.' .$path->getClientOriginalExtension();
+        // Storage::put($filename);
+        // Storage::move($filename, 'public/module/' . $filename);
         
         $module = new Module();
         $module->title = $request->input('title');
         $module->slug = Str::slug($request->input('title'));
-        $module->image = $filename;
+        $module->image = 'image';
         $module->stat = $request->input('stat'); // Soit Debutant, Intermediare ou Avancé
         $module->duration = $request->input('duration');
         $module->formation_id = $request->input('formation');

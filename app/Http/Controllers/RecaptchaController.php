@@ -18,10 +18,14 @@ class RecaptchaController extends Controller
             'response' => $request['recaptcha'],
         ]);
 
-        session()->put([
-            'payload' => $response->body(),
-        ]);
+        // session()->put([
+        //     'payload' => $response->body(),
+        // ]);
 
-        return redirect()->route('captchav2-checkbox');
+        return response()->json([
+          'success' => $response,
+      	], 200);
+
+        //return redirect()->route('captchav2-checkbox');
     }
 }

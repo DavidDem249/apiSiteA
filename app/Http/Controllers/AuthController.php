@@ -52,7 +52,7 @@ class AuthController extends Controller
         //$credentials = request(['email', 'password']);
 
         $credentials = [
-			'email' => 'admin@gmail.com',
+			'email' => 'admin@admin.com',
 			'password' => 'password',
 		];
 

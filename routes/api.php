@@ -79,9 +79,9 @@ Route::group([
 
 Route::get('create-user', function(Request $request){
 	User::create([
-		'name' => 'Daouda',
-		'email' => 'daouda@gmail.com',
-		'password' => Hash::make('daouda')
+		'name' => 'admin',
+		'email' => 'admin@admin.com',
+		'password' => Hash::make('password')
 	]);
 });
 

@@ -46,6 +46,7 @@ class ContactController extends Controller
           'email' => 'required|email|max:255',
           'phone' => 'required|numeric',
           'message' => 'required',
+          'token' => 'required',
       ]);
 
       //dd($request);
@@ -54,7 +55,7 @@ class ContactController extends Controller
       }
 
       Contact::creat($request->all());
-      
+
       Mail::to('info@agilestelecoms.com')->Send(new ContactMail($data));
       return response()->json([
           'success' => 'Message envoyé avec succès',

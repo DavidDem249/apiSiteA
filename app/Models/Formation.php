@@ -9,7 +9,7 @@ class Formation extends Model
 
     protected $table = 'formations';
     public $timestamps = true;
-    protected $fillable = array('title', 'slug', 'image');
+    protected $guarded = [''];
 
     public function domain()
     {

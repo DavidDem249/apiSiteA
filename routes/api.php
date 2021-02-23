@@ -16,6 +16,7 @@ use App\Http\Controllers\DemandesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FormateurController;
 use App\Http\Controllers\RecaptchaController;
+use App\Http\Controllers\RessourceController;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -58,8 +59,9 @@ Route::apiResource('demande', DemandesController::class);
 // });
 Route::get('formateur', [FormateurController::class, 'index']);
 
-Route::post('/contact', [ContactController::class, 'store']);
+Route::post('contact', [ContactController::class, 'store']);
 
+Route::post('uploadfile', [RessourceController::class, 'store']);
 
 //Route::post('/captcha/submit',[RecaptchaController::class, 'recaptcha'])->name('recaptcha');
 

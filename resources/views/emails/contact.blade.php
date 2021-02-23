@@ -3,7 +3,11 @@
 
 {{ $data['message'] }}
 
-{{ $data['nom'] }} - {{ $data['prenom'] }} - {{ $data['phone'] }}
+{{ $data['nom'] }} 
+
+{{ $data['prenom'] }}
+
+{{ $data['phone'] }}
 
 @component('mail::button', ['url' => ''])
 Button Text

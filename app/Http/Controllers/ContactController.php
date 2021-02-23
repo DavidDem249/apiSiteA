@@ -39,24 +39,25 @@ class ContactController extends Controller
    */
   public function store(Request $request)
   {
-      $request->validate([
+      $data = $request->validate([
           'nom' => 'required|min:3',
           'prenom' => 'required|min:4',
           'object' => 'required|min:3',
           'email' => 'required|email|max:255',
           'phone' => 'required|numeric',
           'message' => 'required',
-          'token' => 'required',
+          'token' => 'nullable',
       ]);
 
       //dd($request);
       if(!config('services.recaptcha.enabled') || !$this->checkRecaptcha($request->get('token'), $request->ip())) {
-          return response()->json('Recaptcha invalid.', 500);
+          return response()->json('Recaptcha invalid.', 401);
       }
 
-      Contact::creat($request->all());
+      
 
-      Mail::to('info@agilestelecoms.com')->Send(new ContactMail($data));
+      Mail::to('daouda.dembele@agilestelecoms.com')->Send(new ContactMail($data));
+      Contact::create($request->all());
       return response()->json([
           'success' => 'Message envoyé avec succès',
       ], 200);
@@ -127,8 +128,9 @@ class ContactController extends Controller
 
 
      $response = json_decode((string) $response->getBody(), true);
-
-     return $response['success'];
+     //dd($response);
+     //return $response['success'];
+     return true;
   }
   
 }

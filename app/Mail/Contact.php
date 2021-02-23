@@ -30,6 +30,6 @@ class Contact extends Mailable
     public function build()
     {
         return $this->from("daouda.dembele@agilestelecoms.com")
-                ->subject('Objet : Prise de RDV')->markdown('emails.contact');
+                ->subject('Objet : Agiles Teleco')->markdown('emails.contact');
     }
 }

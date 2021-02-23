@@ -55,11 +55,21 @@ class ContactController extends Controller
       }
 
       
+      try{
+          Mail::to('daouda.dembele@agilestelecoms.com')->Send(new ContactMail($data));
+          Contact::create($request->all());
 
-      Mail::to('daouda.dembele@agilestelecoms.com')->Send(new ContactMail($data));
-      Contact::create($request->all());
+      }catch (Exception $e){
+          return response()->json([
+            'success' => false,
+            'message' => 'Erreur survenue !',
+          ], 404);
+      }
+      
+
       return response()->json([
-          'success' => 'Message envoyé avec succès',
+          'success' => true,
+          'message' => 'Message envoyé avec succès',
       ], 200);
           
           //return redirect()->route('captchav2-checkbox');

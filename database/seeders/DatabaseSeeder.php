@@ -14,12 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
     	$this->call([
-    		//StoreTableSeeder::class,
-    		// DomainTableSeeder::class,
-    		// FormationTableSeeder::class,
-    		// ModuleTableSeeder::class,
-    		// PlanTableSeeder::class,
-            //DemandeTableSeeder::class,
+    		StoreTableSeeder::class,
+    		DomainTableSeeder::class,
+    		FormationTableSeeder::class,
+    		ModuleTableSeeder::class,
+    		PlanTableSeeder::class,
+            DemandeTableSeeder::class,
             FormateurTableSeeder::class,
     	]);
 

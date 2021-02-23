@@ -7,6 +7,7 @@ use App\Models\Contact;
 use Illuminate\Support\Facades\Http;
 use App\Mail\Contact as ContactMail;
 use Illuminate\Support\Facades\Mail;
+use GuzzleHttp\Client;
 
 class ContactController extends Controller 
 {
@@ -44,17 +45,22 @@ class ContactController extends Controller
           'object' => 'required|min:3',
           'email' => 'required|email|max:255',
           'phone' => 'required|numeric',
-          'message' => 'required|text',
+          'message' => 'required',
       ]);
 
+      //dd($request);
+      if(!config('services.recaptcha.enabled') || !$this->checkRecaptcha($request->get('token'), $request->ip())) {
+          return response()->json('Recaptcha invalid.', 500);
+      }
+
+      Contact::creat($request->all());
+      
       Mail::to('info@agilestelecoms.com')->Send(new ContactMail($data));
       return response()->json([
           'success' => 'Message envoyé avec succès',
       ], 200);
           
           //return redirect()->route('captchav2-checkbox');
-
-      }
   }
 
   /**
@@ -99,6 +105,29 @@ class ContactController extends Controller
   public function destroy($id)
   {
     
+  }
+
+
+
+
+  protected function checkRecaptcha($token, $ip)
+  {
+      $response = (new Client)->post('https://www.google.com/recaptcha/api/siteverify', [
+         'form_params' => [
+             'secret' => config('services.recaptcha.secret'),
+             'response' => $token,
+             'remoteip' => $ip,
+         ],
+      ]);
+
+     //echo $response->getStatusCode(); // 200
+     //echo $response->getHeaderLine('content-type'); // 'application/json; charset=utf8'
+     //echo $response->getBody(); // '{"id": 1420053, "name": "guzzle", ...}'
+
+
+     $response = json_decode((string) $response->getBody(), true);
+
+     return $response['success'];
   }
   
 }

@@ -46,24 +46,24 @@ class ContactController extends Controller
           'email' => 'required|email|max:255',
           'phone' => 'required|numeric',
           'message' => 'required',
-          'token' => 'nullable',
+          //'token' => 'nullable',
       ]);
 
       //dd($request);
-      if(!config('services.recaptcha.enabled') || !$this->checkRecaptcha($request->get('token'), $request->ip())) {
-          return response()->json('Recaptcha invalid.', 401);
-      }
+      // if(!config('services.recaptcha.enabled') || !$this->checkRecaptcha($request->get('token'), $request->ip())) {
+      //     return response()->json('Recaptcha invalid.', 401);
+      // }
       
-      try{
-          Mail::to('daouda.dembele@agilestelecoms.com')->Send(new ContactMail($data));
-          Contact::create($request->all());
+      // try{
+      Mail::to('daouda.dembele@agilestelecoms.com')->Send(new ContactMail($data));
+      Contact::create($request->all());
 
-      }catch (Exception $e){
-          return response()->json([
-            'success' => false,
-            'message' => 'Erreur survenue!',
-          ], 404);
-      }
+      // }catch (Exception $e){
+      //     return response()->json([
+      //       'success' => false,
+      //       'message' => 'Erreur survenue!',
+      //     ], 404);
+      // }
       
       return response()->json([
           'success' => true,

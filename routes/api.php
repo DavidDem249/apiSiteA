@@ -66,7 +66,7 @@ Route::post('uploadfile', [RessourceController::class, 'store']);
 Route::get('agileressource', [RessourceController::class, 'index']);
 Route::get('agileressource/{resource}', [RessourceController::class, 'show']);
 
-Route::post('download-resource', [DownloadRessourceController::class,'store']);
+Route::post('download-resource/{resource_id}', [DownloadRessourceController::class,'store']);
 
 //Route::post('/captcha/submit',[RecaptchaController::class, 'recaptcha'])->name('recaptcha');
 

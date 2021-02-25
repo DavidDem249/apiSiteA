@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\DownloadRessource;
+use App\Models\Ressource;
 
 class DownloadRessourceController extends Controller
 {
@@ -24,7 +25,7 @@ class DownloadRessourceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Ressource $resource_id)
     {
         $validator = Validator::make($request->all(),[ 
             'name' => 'required|min:2',
@@ -37,6 +38,8 @@ class DownloadRessourceController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);
         } 
 
+        $resource_id = Ressource::find($resource_id);
+        dd($resource_id);
         $saving = New DownloadRessource();
         $saving->name = $request->name;
         $saving->firstname = $request->firstname;

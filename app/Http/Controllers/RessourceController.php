@@ -53,9 +53,9 @@ class RessourceController extends Controller
                 if($illust = $request->file('illustration'))
                 {
                     $pathIllustration = $illust->store('agilesRessources/photo', 'public');
-                   
+                    dd($pathIllustration);
                     $pathFichier = $fichier->store('agilesRessources','public');
-                    dd($pathFichier);
+
                     $nameFichier = $fichier->getClientOriginalName();
 
                     

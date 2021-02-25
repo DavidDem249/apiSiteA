@@ -29,36 +29,28 @@ class RessourceController extends Controller
      */
     public function store(Request $request)
     {
-
+        /*
         $validator = Validator::make($request->all(),[ 
             'title' => 'required',
             'illustration' => 'required|mimes:png,jpg,jpeg,gif',
-            'fichier' => 'required',
             //'fichier' => 'required|mimes:doc,docx,pdf,txt,pptx,png,jpg,jpeg',
         ]); 
-
+        */
         // $validator = $request->validate([
         //     'title' => 'required',
         //     'illustration' => 'nullable|mimes:png,jpg,jpeg,gif|max:2305',
         //     'fichier' => 'nullable|mimes:doc,docx,pdf,txt|max:2048',
         // ]);
 
-        if($validator->fails()){          
+        /*if($validator->fails()){          
             return response()->json(['error'=>$validator->errors()], 401);
-        } 
+        } */
 
         
         if($fichier = $request->file('fichier')) {
-
-            
-
             if($illust = $request->file('illustration'))
             {
-                //dd($illust);
-
                 $pathIllustration = $illust->store('public/agilesRessources/photo');
-
-                //$nameFichier = $fichier->getClientOriginalName();
 
                 $pathFichier = $fichier->store('agilesRessources','public');
                 $nameFichier = $fichier->getClientOriginalName();

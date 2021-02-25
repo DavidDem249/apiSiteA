@@ -32,7 +32,7 @@ class CarriereController extends Controller
             'prenom' => 'required|min:3',
             'phone' => 'required|numeric|min:8',
             'email' => 'required|email|max:255',
-            'fichiers' => 'required|mimes:doc,docx,pdf,txt|max:2048',
+            'fichiers' => 'required|mimes:doc,docx,pdf,txt',
         ]);
 
         $data = $request->all();

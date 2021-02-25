@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\DownloadRessource;
 use App\Models\Ressource;
 
+use App\Mail\SendMailSuccess;
+use Illuminate\Support\Facades\Mail;
+
 class DownloadRessourceController extends Controller
 {
     /**
@@ -34,12 +37,14 @@ class DownloadRessourceController extends Controller
             'profession' => 'required',
         ]);
 
+        $data = $request->all();
+        
         if($validator->fails()){          
             return response()->json(['error'=>$validator->errors()], 401);
         } 
 
-        $resource_id = Ressource::find($resource_id);
-        dd($resource_id);
+        $resource_id = Ressource::find($resource_id)->first();
+        //dd($resource_id->fichier);
         $saving = New DownloadRessource();
         $saving->name = $request->name;
         $saving->firstname = $request->firstname;
@@ -47,13 +52,19 @@ class DownloadRessourceController extends Controller
         $saving->profession = $request->profession;
         $saving->save();
 
+        $file = public_path('storage').'/'.$resource_id->fichier;
+        //$file = public_path('storage').'/agilesRessources/DOIgWtWDXlQIYAgKYeHmZ84mSfGSOPRyCdLqxqx6.pdf';
+        //dd($file);
+
         if($saving->save()) {
 
-            return response()->json([
-                "success" => true,
-                "message" => "Données enregistrée avec succès",
-                "data" => $saving
-            ]);
+            // return response()->json([
+            //     "success" => true,
+            //     "message" => "Données enregistrée avec succès",
+            //     "fichier" => $saving
+            // ]);
+            Mail::to('david.kouakou@agilestelecoms.com')->Send(new SendMailSuccess($data));
+            return response()->download($file);
 
         }else{
             return response()->json([

@@ -33,7 +33,8 @@ class RessourceController extends Controller
         $validator = Validator::make($request->all(),[ 
             'title' => 'required',
             'illustration' => 'required|mimes:png,jpg,jpeg,gif',
-            'fichier' => 'required|mimes:doc,docx,pdf,txt,pptx,png,jpg,jpeg',
+            'fichier' => 'required',
+            //'fichier' => 'required|mimes:doc,docx,pdf,txt,pptx,png,jpg,jpeg',
         ]); 
 
         // $validator = $request->validate([

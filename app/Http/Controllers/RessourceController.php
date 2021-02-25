@@ -80,8 +80,8 @@ class RessourceController extends Controller
                 }
             }else{
                 return response()->json([
-                    "message" => "Envoyé un fichier svp";
-                ],401)
+                    "message" => "Envoyé un fichier svp"
+                ],401);
             }  
         }
 

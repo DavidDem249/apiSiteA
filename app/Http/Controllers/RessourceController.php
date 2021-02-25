@@ -47,35 +47,35 @@ class RessourceController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);
         } */
 
-        
-        if($fichier = $request->file('fichier')) {
+        if($request->hasFile('illustration')){
+            if($fichier = $request->file('fichier')) {
 
-            if($illust = $request->file('illustration'))
-            {
-                
-                $pathIllustration = $illust->store('agilesRessources/photo', 'public');
-                dd($pathIllustration);
-                $pathFichier = $fichier->store('agilesRessources','public');
-                $nameFichier = $fichier->getClientOriginalName();
+                if($illust = $request->file('illustration'))
+                {
+                    $pathIllustration = $illust->store('agilesRessources/photo', 'public');
+                    dd($pathIllustration);
+                    $pathFichier = $fichier->store('agilesRessources','public');
+                    $nameFichier = $fichier->getClientOriginalName();
 
-                
-      
-                //store your file into directory and db
-                $ressource = new Ressource();
-                $ressource->title = $request->title;
-                $ressource->illustration = $pathIllustration;
-                $ressource->fichier= $pathFichier;
-                $ressource->name = $nameFichier;
-                $ressource->save();
+                    
+          
+                    //store your file into directory and db
+                    $ressource = new Ressource();
+                    $ressource->title = $request->title;
+                    $ressource->illustration = $pathIllustration;
+                    $ressource->fichier= $pathFichier;
+                    $ressource->name = $nameFichier;
+                    $ressource->save();
 
-                //dd($ressource);
-                return response()->json([
-                    "success" => true,
-                    "message" => "File successfully uploaded",
-                   // "fichier" => $pathFichier
-                ]);
-            }   
-        }  
+                    //dd($ressource);
+                    return response()->json([
+                        "success" => true,
+                        "message" => "File successfully uploaded",
+                       // "fichier" => $pathFichier
+                    ]);
+                }   
+            }  
+        }
 
         /* =============================== */
         /*

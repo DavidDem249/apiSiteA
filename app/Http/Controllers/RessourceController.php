@@ -59,7 +59,7 @@ class RessourceController extends Controller
                         
                         $pathFichier = $fichier->store('agilesRessources','public');
                         $nameFichier = $fichier->getClientOriginalName();
-                        dd($pathIllustration);
+                        dd($pathFichier);
                         
               
                         //store your file into directory and db

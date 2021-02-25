@@ -43,8 +43,14 @@ class DemandesController extends Controller
 
       if($demandeur->save()){
           return response()->json([
-              'success' => 'Démande de formation effectué avec succès',
+            'success' => true,
+            'message' => 'Démande de formation effectuée avec succès',
           ], 200);
+      }else{
+          return response()->json([
+            'success' => false,
+            'message' => 'Démande de formation non effectuée',
+          ], 401);
       }
   }
 

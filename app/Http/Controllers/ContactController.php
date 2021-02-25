@@ -53,7 +53,6 @@ class ContactController extends Controller
       if(!config('services.recaptcha.enabled') || !$this->checkRecaptcha($request->get('token'), $request->ip())) {
           return response()->json('Recaptcha invalid.', 401);
       }
-
       
       try{
           Mail::to('daouda.dembele@agilestelecoms.com')->Send(new ContactMail($data));
@@ -62,11 +61,10 @@ class ContactController extends Controller
       }catch (Exception $e){
           return response()->json([
             'success' => false,
-            'message' => 'Erreur survenue !',
+            'message' => 'Erreur survenue!',
           ], 404);
       }
       
-
       return response()->json([
           'success' => true,
           'message' => 'Message envoyé avec succès',

@@ -15,8 +15,8 @@ class CreateDownloadRessourcesTable extends Migration
     {
         Schema::create('download_ressources', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('prenom');
+            $table->string('name');
+            $table->string('firstname');
             $table->string('email');
             $table->string('profession');
             $table->timestamps();

@@ -60,7 +60,8 @@ class FormateurController extends Controller
                 Mail::to('info@agilestelecoms.com')->Send(new Message($data));
 
                 return response()->json([
-                    'success' => 'Votre demande a bien été effectuée avec succès',
+                    'success' => true,
+                    'message' => 'Votre demande a bien été effectuée avec succès',
                 ], 200);
             }
         }

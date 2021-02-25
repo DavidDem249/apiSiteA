@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ressource;
 //use Validator;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\RessourceR;
 
 class RessourceController extends Controller
 {
@@ -13,10 +14,11 @@ class RessourceController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+    */
     public function index()
     {
-        //
+        $resources = Ressource::orderby('created_at','DESC')->get();;
+        return RessourceR::collection($resources);
     }
 
     /**
@@ -44,31 +46,38 @@ class RessourceController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);
         } 
 
-        //dd($validator);
+        
 
         if($fichier = $request->file('fichier')) {
 
+            
+
             if($illust = $request->file('illustration'))
             {
+                //dd($illust);
 
                 $pathIllustration = $illust->store('public/agilesRessources/photo');
+
                 //$nameFichier = $fichier->getClientOriginalName();
 
                 $pathFichier = $fichier->store('public/agilesRessources');
                 $nameFichier = $fichier->getClientOriginalName();
+
+                //dd($nameFichier);
       
                 //store your file into directory and db
                 $ressource = new Ressource();
-                $ressource->title = $validator['title'];
+                $ressource->title = $request->title;
                 $ressource->illustration = $pathIllustration;
                 $ressource->fichier= $pathFichier;
                 $ressource->name = $nameFichier;
                 $ressource->save();
-                   
+
+                //dd($ressource);
                 return response()->json([
                     "success" => true,
                     "message" => "File successfully uploaded",
-                    "file" => $file
+                   // "fichier" => $pathFichier
                 ]);
             }   
         }
@@ -81,9 +90,10 @@ class RessourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ressource $resource)
     {
-        //
+
+        return new RessourceR($resource);
     }
 
     /**

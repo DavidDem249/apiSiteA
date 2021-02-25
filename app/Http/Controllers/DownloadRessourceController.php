@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Models\DownloadRessource;
 
 class DownloadRessourceController extends Controller
 {
@@ -11,9 +13,9 @@ class DownloadRessourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -24,7 +26,39 @@ class DownloadRessourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[ 
+            'name' => 'required|min:2',
+            'firstname' => 'required|min:3',
+            'email' => 'required|email|max:255',
+            'profession' => 'required',
+        ]);
+
+        if($validator->fails()){          
+            return response()->json(['error'=>$validator->errors()], 401);
+        } 
+
+        $saving = New DownloadRessource();
+        $saving->name = $request->name;
+        $saving->firstname = $request->firstname;
+        $saving->email = $request->email;
+        $saving->profession = $request->profession;
+        $saving->save();
+
+        if($saving->save()) {
+
+            return response()->json([
+                "success" => true,
+                "message" => "Données enregistrée avec succès",
+                "data" => $saving
+            ]);
+
+        }else{
+            return response()->json([
+                "success" => false,
+                "message" => "échec d'enregistrement",
+            ]);
+        }
+
     }
 
     /**

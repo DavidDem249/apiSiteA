@@ -17,6 +17,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FormateurController;
 use App\Http\Controllers\RecaptchaController;
 use App\Http\Controllers\RessourceController;
+use App\Http\Controllers\DownloadRessourceController;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -62,6 +63,10 @@ Route::get('formateur', [FormateurController::class, 'index']);
 Route::post('contact', [ContactController::class, 'store']);
 
 Route::post('uploadfile', [RessourceController::class, 'store']);
+Route::get('agileressource', [RessourceController::class, 'index']);
+Route::get('agileressource/{resource}', [RessourceController::class, 'show']);
+
+Route::post('download-resource', [DownloadRessourceController::class,'store']);
 
 //Route::post('/captcha/submit',[RecaptchaController::class, 'recaptcha'])->name('recaptcha');
 

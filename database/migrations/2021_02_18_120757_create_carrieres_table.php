@@ -18,8 +18,8 @@ class CreateCarrieresTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('phone');
-            $table->string('email')->unique();
-            $table->string('poste');
+            $table->string('email');
+            // $table->string('poste');
             $table->string('fichiers')->nullable();
             $table->timestamps();
         });

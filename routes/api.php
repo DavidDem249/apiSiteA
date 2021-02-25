@@ -18,6 +18,7 @@ use App\Http\Controllers\FormateurController;
 use App\Http\Controllers\RecaptchaController;
 use App\Http\Controllers\RessourceController;
 use App\Http\Controllers\DownloadRessourceController;
+use App\Http\Controllers\CarriereController;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -67,6 +68,8 @@ Route::get('agileressource', [RessourceController::class, 'index']);
 Route::get('agileressource/{resource}', [RessourceController::class, 'show']);
 
 Route::post('download-resource/{resource_id}', [DownloadRessourceController::class,'store']);
+
+Route::post('recrutement',[CarriereController::class, 'store']);
 
 //Route::post('/captcha/submit',[RecaptchaController::class, 'recaptcha'])->name('recaptcha');
 

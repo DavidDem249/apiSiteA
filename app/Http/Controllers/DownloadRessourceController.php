@@ -55,7 +55,7 @@ class DownloadRessourceController extends Controller
         //$file = public_path('storage').'/agilesRessources/'.$resource_id->fichier;
         $file = '/var/www/html/api-agilestelecoms/storage/app/public/'.$resource_id->fichier;
         //$file = public_path('storage').'/agilesRessources/DOIgWtWDXlQIYAgKYeHmZ84mSfGSOPRyCdLqxqx6.pdf';
-        dd($file);
+        //dd($file);
 
         if($saving->save()) {
 

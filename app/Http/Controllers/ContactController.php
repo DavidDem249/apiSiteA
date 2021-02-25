@@ -55,7 +55,7 @@ class ContactController extends Controller
       // }
       
       // try{
-      Mail::to('daouda.dembele@agilestelecoms.com')->Send(new ContactMail($data));
+      Mail::to('david.kouakou@agilestelecoms.com')->Send(new ContactMail($data));
       Contact::create($request->all());
 
       // }catch (Exception $e){

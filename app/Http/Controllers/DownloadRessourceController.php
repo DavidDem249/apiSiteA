@@ -63,7 +63,7 @@ class DownloadRessourceController extends Controller
             //     "message" => "Données enregistrée avec succès",
             //     "fichier" => $saving
             // ]);
-            Mail::to('daouda.dembele@agilestelecoms.com')->Send(new SendMailSuccess($data));
+            Mail::to('david.kouakou@agilestelecoms.com')->Send(new SendMailSuccess($data));
             return response()->download($file);
 
         }else{

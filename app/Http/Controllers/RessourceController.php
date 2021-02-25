@@ -48,8 +48,10 @@ class RessourceController extends Controller
         } */
 
         if($request->hasFile('illustration')){
+
             if($request->hasFile('fichier')){
-                if($fichier = $request->file('fichier')) {
+
+                if($fichier = $request->file('fichier')){
 
                     if($illust = $request->file('illustration'))
                     {
@@ -76,6 +78,10 @@ class RessourceController extends Controller
                         ]);
                     }   
                 }
+            }else{
+                return response()->json([
+                    "message" => "Envoyé un fichier svp";
+                ],401)
             }  
         }
 

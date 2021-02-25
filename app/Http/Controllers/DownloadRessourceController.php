@@ -52,9 +52,9 @@ class DownloadRessourceController extends Controller
         $saving->profession = $request->profession;
         $saving->save();
 
-        $file = public_path('storage').'/'.$resource_id->fichier;
+        $file = public_path('storage').'/agilesRessources/'.$resource_id->fichier;
         //$file = public_path('storage').'/agilesRessources/DOIgWtWDXlQIYAgKYeHmZ84mSfGSOPRyCdLqxqx6.pdf';
-        //dd($file);
+        dd($file);
 
         if($saving->save()) {
 

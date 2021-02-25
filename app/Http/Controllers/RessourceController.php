@@ -7,6 +7,7 @@ use App\Models\Ressource;
 //use Validator;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\RessourceR;
+use Illuminate\Support\Facades\Storage;
 
 class RessourceController extends Controller
 {
@@ -48,9 +49,10 @@ class RessourceController extends Controller
 
         
         if($fichier = $request->file('fichier')) {
+
             if($illust = $request->file('illustration'))
             {
-                $pathIllustration = $illust->store('public/agilesRessources/photo');
+                $pathIllustration = $illust->store('agilesRessources/photo', 'public');
 
                 $pathFichier = $fichier->store('agilesRessources','public');
                 $nameFichier = $fichier->getClientOriginalName();
@@ -72,7 +74,49 @@ class RessourceController extends Controller
                    // "fichier" => $pathFichier
                 ]);
             }   
-        }
+        }  
+
+        /* =============================== */
+        /*
+        if(request('illustration'))
+        {
+            if($request->hasFile('fichier')){
+                //Get file from the browser 
+                $pathIllustration = $request->file('illustration');
+                $pathFichier = $request->file('fichier');
+                
+                $nameFichier = $pathFichier->getClientOriginalName();
+                //dd($pathFichier);
+                //Provide the file name with extension 
+                $filenameFichier = $request->title.time(). '.' .$pathFichier->getClientOriginalExtension();
+                $filenameIllustration = $request->title.time(). '.' .$pathIllustration->getClientOriginalExtension();
+
+                //Put file with own name
+                Storage::put($filenameFichier, $pathFichier);
+                Storage::put($filenameIllustration, $pathIllustration);
+
+                //Move file to your location 
+                Storage::move($filenameFichier, 'public/agilesRessources/' . $filenameFichier);
+                Storage::move($filenameIllustration, 'public/agilesRessources/' . $filenameIllustration);
+
+
+                //dd($filenameIllustration);
+                //store your file into directory and db
+                $ressource = new Ressource();
+                $ressource->title = $request->title;
+                $ressource->illustration = $filenameIllustration;
+                $ressource->fichier= $filenameFichier;
+                $ressource->name = $nameFichier;
+                $ressource->save();
+
+                //dd($ressource);
+                return response()->json([
+                    "success" => true,
+                    "message" => "File successfully uploaded",
+                   // "fichier" => $pathFichier
+                ]);
+            }
+        } */
 
     }
 

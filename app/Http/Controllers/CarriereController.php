@@ -36,19 +36,47 @@ class CarriereController extends Controller
         ]);
 
         $data = $request->all();
-        $pdf = $data['fichiers'];
 
-        if($validator->fails()){          
-            return response()->json(['error'=>$validator->errors()], 401);
-        }
+        $nom = $request->nom;
+        $prenom = $request->prenom;
+        $phone = $request->phone;
+        $email = $request->email;
+        $fichiers = $request->fichiers;
 
-        $pdf_data = $pdf;
+        $description = "<br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/> Cv: $fichiers";
 
-        Mail::send('pdf.application',$pdf_data, function ($message) use($pdf_data, $pdf) {
-        $message->to('daouda.dembele@agilestelecoms.com', $data["nom"])
-            ->subject('RECRUTEMENT')
-            ->attachData($pdf->output(), "application_" . $data["name"] . ".pdf");
+        $emailAgile = 'daouda.dembele@agilestelecoms.com';
+
+        //$file = $request->file('cv');
+        Mail::send([], [], function ($message) use ($nom,$email,$description,$emailAgile, $fichiers, $request) {
+            $message->to($emailAgile)
+                ->from($email,$nom)
+                ->replyTo($email)
+                ->subject("AGILES TELECOMS - RECRUTEMENT")
+                ->setBody("<html>$description</html>", 'text/html'); // for HTML rich messages
+
+            if($request->hasFile('fichiers')){
+                
+                $message->attach($fichiers->getRealPath(), array(
+                    'as' => $fichiers->getClientOriginalName(), // If you want you can chnage original name to custom name      
+                    'mime' => $fichiers->getMimeType())
+                );
+            }
         });
+
+        //$pdf = $data['fichiers'];
+
+        // if($validator->fails()){          
+        //     return response()->json(['error'=>$validator->errors()], 401);
+        // }
+
+        // $pdf_data = $pdf;
+
+        // Mail::send('pdf.application',$pdf_data, function ($message) use($pdf_data, $pdf) {
+        // $message->to('daouda.dembele@agilestelecoms.com', $data["nom"])
+        //     ->subject('RECRUTEMENT')
+        //     ->attachData($pdf->output(), "application_" . $data["name"] . ".pdf");
+        // });
 
         //Mail::to('my@mail.com')->send(new NewApplication($application->fresh()));
 

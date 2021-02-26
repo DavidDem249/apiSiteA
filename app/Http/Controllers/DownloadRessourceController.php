@@ -53,7 +53,7 @@ class DownloadRessourceController extends Controller
         $saving->save();
 
         //$file = public_path('storage').'/agilesRessources/'.$resource_id->fichier;
-        $file = '/var/www/html/api-agilestelecoms/storage/app/public/'.$resource_id->fichier;
+        $file = public_path('storage/').$resource_id->fichier;
         //$file = public_path('storage').'/agilesRessources/DOIgWtWDXlQIYAgKYeHmZ84mSfGSOPRyCdLqxqx6.pdf';
         //dd($file);
 
@@ -64,7 +64,7 @@ class DownloadRessourceController extends Controller
             //     "message" => "Données enregistrée avec succès",
             //     "fichier" => $saving
             // ]);
-            Mail::to('david.kouakou@agilestelecoms.com')->Send(new SendMailSuccess($data));
+            Mail::to('daouda.dembele@agilestelecoms.com')->Send(new SendMailSuccess($data));
             return response()->download($file);
 
         }else{

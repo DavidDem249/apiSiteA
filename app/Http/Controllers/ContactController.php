@@ -17,26 +17,6 @@ class ContactController extends Controller
    *
    * @return Response
    */
-  public function index()
-  {
-      
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
-  }
-
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
   public function store(Request $request)
   {
       $data = $request->validate([
@@ -44,80 +24,32 @@ class ContactController extends Controller
           'prenom' => 'required|min:4',
           'object' => 'required|min:3',
           'email' => 'required|email|max:255',
-          'phone' => 'required|numeric',
+          'phone' => 'required|min:8',
           'message' => 'required',
-          //'token' => 'nullable',
       ]);
 
+      //dd($data);
       //dd($request);
       // if(!config('services.recaptcha.enabled') || !$this->checkRecaptcha($request->get('token'), $request->ip())) {
       //     return response()->json('Recaptcha invalid.', 401);
       // }
       
       // try{
-      Mail::to('david.kouakou@agilestelecoms.com')->Send(new ContactMail($data));
+      Mail::to('david.kouakou@agilestelecoms.com')
+          ->cc('daouda.dembele@agilestelecoms.com')
+          ->bcc('regis.gnonrou@agilestelecoms.com')
+          ->Send(new ContactMail($data));
+
       Contact::create($request->all());
 
-      // }catch (Exception $e){
-      //     return response()->json([
-      //       'success' => false,
-      //       'message' => 'Erreur survenue!',
-      //     ], 404);
-      // }
-      
+
       return response()->json([
           'success' => true,
           'message' => 'Message envoyé avec succès',
       ], 200);
           
-          //return redirect()->route('captchav2-checkbox');
+      //return redirect()->route('captchav2-checkbox');
   }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    
-  }
-
-
 
 
   protected function checkRecaptcha($token, $ip)
@@ -140,7 +72,6 @@ class ContactController extends Controller
      //return $response['success'];
      return true;
   }
-  
-}
 
+}
 ?>

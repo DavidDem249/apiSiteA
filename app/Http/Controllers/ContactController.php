@@ -48,7 +48,6 @@ class ContactController extends Controller
           'message' => 'Message envoyé avec succès',
       ], 200);
           
-      //return redirect()->route('captchav2-checkbox');
   }
 
 

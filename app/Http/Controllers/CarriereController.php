@@ -64,8 +64,6 @@ class CarriereController extends Controller
         });
         
         return response()->json('OK', 200);
-
-        //dd($request->all());
     }
 
     /**

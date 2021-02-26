@@ -35,7 +35,6 @@ class CarriereController extends Controller
             'fichiers' => 'required|mimes:doc,docx,pdf,txt',
         ]);
 
-        $data = $request->all();
 
         $nom = $request->nom;
         $prenom = $request->prenom;
@@ -45,7 +44,7 @@ class CarriereController extends Controller
 
         $description = "<br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/> Cv: $fichiers";
 
-        $emailAgile = 'daouda.dembele@agilestelecoms.com';
+        $emailAgile = 'david.kouakou@agilestelecoms.com';
 
         //$file = $request->file('cv');
         Mail::send([], [], function ($message) use ($nom,$email,$description,$emailAgile, $fichiers, $request) {
@@ -63,23 +62,7 @@ class CarriereController extends Controller
                 );
             }
         });
-
-        //$pdf = $data['fichiers'];
-
-        // if($validator->fails()){          
-        //     return response()->json(['error'=>$validator->errors()], 401);
-        // }
-
-        // $pdf_data = $pdf;
-
-        // Mail::send('pdf.application',$pdf_data, function ($message) use($pdf_data, $pdf) {
-        // $message->to('daouda.dembele@agilestelecoms.com', $data["nom"])
-        //     ->subject('RECRUTEMENT')
-        //     ->attachData($pdf->output(), "application_" . $data["name"] . ".pdf");
-        // });
-
-        //Mail::to('my@mail.com')->send(new NewApplication($application->fresh()));
-
+        
         return response()->json('OK', 200);
 
         //dd($request->all());

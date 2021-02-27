@@ -55,10 +55,17 @@ class RessourceController extends Controller
 
                     if($illust = $request->file('illustration'))
                     {
-                        $pathIllustration = $illust->store('agilesRessources/photo', 'public');
+                        //$pathIllustration = $illust->store('agilesRessources/photo', 'public');
+                        $nameIllust = $illust->getClientOriginalName();
+                        $pathIllustration = $illust->move('agilesRessources/photo', $nameIllust);
+
                         
-                        $pathFichier = $fichier->store('agilesRessources','public');
+                        
+
+                        //$pathFichier = $fichier->store('agilesRessources','public');
                         $nameFichier = $fichier->getClientOriginalName();
+                        $pathFichier = $fichier->move('agilesRessources', $nameFichier);
+                        //dd(realPath($pathFichier));
                         //dd($pathFichier);
                         
               
@@ -68,6 +75,7 @@ class RessourceController extends Controller
                         $ressource->illustration = $pathIllustration;
                         $ressource->fichier= $pathFichier;
                         $ressource->name = $nameFichier;
+                        $ressource->description = $request->description;
                         $ressource->save();
 
                         //dd($ressource);

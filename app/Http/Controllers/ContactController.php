@@ -26,7 +26,7 @@ class ContactController extends Controller
           'object' => 'required|min:3',
           'email' => 'required|email|max:255',
           'phone' => 'required|min:8',
-          'message' => 'required',
+          'message' => 'required'
       ]);
 
       

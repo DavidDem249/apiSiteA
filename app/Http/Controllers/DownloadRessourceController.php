@@ -52,10 +52,10 @@ class DownloadRessourceController extends Controller
         $saving->profession = $request->profession;
         $saving->save();
 
-        //$file = public_path('storage').'/agilesRessources/'.$resource_id->fichier;
-        $file = '/var/www/html/api-agilestelecoms/storage/app/public/'.$resource_id->fichier;
+        $file = public_path('storage').'/agilesRessources/'.$resource_id->fichier;
+        //$file = '/var/www/html/api-agilestelecoms/storage/app/public/'.$resource_id->fichier;
         //$file = public_path('storage').'/agilesRessources/DOIgWtWDXlQIYAgKYeHmZ84mSfGSOPRyCdLqxqx6.pdf';
-        //dd($file);
+        dd($file);
 
         if($saving->save()) {
 
@@ -67,7 +67,11 @@ class DownloadRessourceController extends Controller
             Mail::to('david.kouakou@agilestelecoms.com')
                 ->cc('daouda.dembele@agilestelecoms.com')
                 ->Send(new SendMailSuccess($data));
-            return response()->download($file);
+
+            //return response()->download($file);
+            return response()->json([
+                'link_ressoure' => $file
+            ]);
 
         }else{
             return response()->json([

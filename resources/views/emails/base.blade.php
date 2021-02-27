@@ -161,7 +161,7 @@
                                     <tr>
                                         <td align="center" height="100" style="height:100px;">
                                             <a href="#" style="display: block; border-style: none !important; border: 0 !important;">
-                                              <img width="100" border="0" style="display: block; width: 400px;" src="{{ URL::asset('logo/LOGO.jpg') }}" alt="" />
+                                              <img width="100" border="0" style="display: block; width: 400px;" src="{{ asset('logo/LOGO.jpg') }}" alt="" />
                                             </a>
                                         </td>
                                     </tr>
@@ -204,7 +204,7 @@
                                                     <!-- logo -->
                                                     <td align="left">
                                                         <a href="" style="display: block; border-style: none !important; border: 0 !important;">
-                                                          <img width="40" border="0" style="display: block; width: 200px;" src="{{ URL::asset('logo/LOGO.jpg') }}" alt="" />
+                                                          <img width="40" border="0" style="display: block; width: 200px;" src="{{ asset('logo/LOGO.jpg') }}" alt="" />
                                                         </a>
                                                     </td>
                                                 </tr>

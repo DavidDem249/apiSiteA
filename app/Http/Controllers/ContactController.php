@@ -19,6 +19,7 @@ class ContactController extends Controller
    */
   public function store(Request $request)
   {
+
       $data = $request->validate([
           'nom' => 'required|min:3',
           'prenom' => 'required|min:4',
@@ -28,16 +29,10 @@ class ContactController extends Controller
           'message' => 'required',
       ]);
 
-      //dd($data);
-      //dd($request);
-      // if(!config('services.recaptcha.enabled') || !$this->checkRecaptcha($request->get('token'), $request->ip())) {
-      //     return response()->json('Recaptcha invalid.', 401);
-      // }
       
-      // try{
       Mail::to('david.kouakou@agilestelecoms.com')
           ->cc('daouda.dembele@agilestelecoms.com')
-          ->bcc('regis.gnonrou@agilestelecoms.com')
+          //->bcc('regis.gnonrou@agilestelecoms.com')
           ->Send(new ContactMail($data));
 
       Contact::create($request->all());

@@ -31,39 +31,82 @@ class FormateurController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $validate = $request->validate([
             'nom' => 'required|min:3',
             'prenom' => 'required|min:3',
             'phone' => 'required|min:20',
             'email' => 'required|email|max:255',
-            'lien_linkdin' => 'required|url',
-            'domaine' => 'required|url',
-            'g-recaptcha-response' => 'required|recaptcha'
+            'lien_linkdin' => 'required',
+            'domaine' => 'required',
+            //'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
-        $secret = \config('captcha.v2-checkbox');
+        // $secret = \config('captcha.v2-checkbox');
 
-        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify',[
-              'secret' => $secret,
-              'response' => $request['g-recaptcha-response'],
-        ]);
+        // $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify',[
+        //       'secret' => $secret,
+        //       'response' => $request['g-recaptcha-response'],
+        // ]);
 
-        session()->put([
-            'payload' => $response->body(),
-        ]);
+        // session()->put([
+        //     'payload' => $response->body(),
+        // ]);
 
         if($validate)
         {
-            if($response->success)
-            {
-                Formateur::create($request->all());
-                Mail::to('info@agilestelecoms.com')->Send(new Message($data));
+            // if($response->success)
+            // {
+            Formateur::create($request->all());
+            Mail::to('daouda.dembele@agilestelecoms.com')->Send(new Message($data));
 
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Votre demande a bien été effectuée avec succès',
-                ], 200);
-            }
+            return response()->json([
+                'success' => true,
+                'message' => 'Votre demande a bien été effectuée avec succès',
+            ], 200);
+            // }
+        }
+    }
+
+    public function candidater(Request $request)
+    {
+        //dd($request->all());
+        $data = $request->validate([
+            'nom' => 'required|min:3',
+            'prenom' => 'required|min:3',
+            'phone' => 'required|min:8',
+            'email' => 'required|email|max:255',
+            'lien_linkdin' => 'required',
+            'domaine' => 'required',
+            //'g-recaptcha-response' => 'required|recaptcha'
+        ]);
+        //dd($validate);
+
+        // $secret = \config('captcha.v2-checkbox');
+
+        // $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify',[
+        //       'secret' => $secret,
+        //       'response' => $request['g-recaptcha-response'],
+        // ]);
+
+        // session()->put([
+        //     'payload' => $response->body(),
+        // ]);
+
+        if($data)
+        {
+            // if($response->success)
+            // {
+            Formateur::create($request->all());
+            Mail::to('david.kouakou@agilestelecoms.com')
+                ->cc('daouda.dembele@agilestelecoms.com')
+                ->Send(new Message($data));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Votre demande a bien été effectuée avec succès',
+            ], 200);
+            // }
         }
     }
 

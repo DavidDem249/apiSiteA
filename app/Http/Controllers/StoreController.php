@@ -45,17 +45,26 @@ class StoreController extends Controller
         // Storage::put($filename);
         // Storage::move($filename, 'public/store/' . $filename);
 
-        $store = new Store();
-        $store->title = $request->input('title');
-        $store->slug = Str::slug($request->input('title'));
-        $store->image = 'image';
-        $store->save();
+        if($request->hasFile('image')){
 
-        if($store->save()){
-            return response()->json([
-                'success' => 'La création du store effectué avec succès',
-            ], 200);
+            $photo = $request->file('image')
+            $name = $photo->getClientOriginalName();
+            $imagePath = $photo->move('store/photo', $name);
+
+            //Insertion bd
+            $store = new Store();
+            $store->title = $request->input('title');
+            $store->slug = Str::slug($request->input('title'));
+            $store->image = $imagePath;
+            $store->save();
+
+            if($store->save()){
+                return response()->json([
+                    'success' => 'La création du store effectué avec succès',
+                ], 200);
+            }
         }
+        
     }
 
     /**

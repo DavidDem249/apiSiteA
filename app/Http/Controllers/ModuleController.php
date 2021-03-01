@@ -45,21 +45,28 @@ class ModuleController extends Controller
         // $filename = time(). '.' .$path->getClientOriginalExtension();
         // Storage::put($filename);
         // Storage::move($filename, 'public/module/' . $filename);
-        
-        $module = new Module();
-        $module->title = $request->input('title');
-        $module->slug = Str::slug($request->input('title'));
-        $module->image = 'image';
-        $module->stat = $request->input('stat'); // Soit Debutant, Intermediare ou Avancé
-        $module->duration = $request->input('duration');
-        $module->formation_id = $request->input('formation');
-        $module->save();
+        if($request->hasFile('image')){
 
-        if($module->save()){
-            return response()->json([
-                'success' => 'Module créee avec succès',
-            ], 200);
-        }
+            $photo = $request->file('image')
+            $name = $photo->getClientOriginalName();
+            $imagePath = $photo->move('module/photo', $name);
+
+            $module = new Module();
+            $module->title = $request->input('title');
+            $module->slug = Str::slug($request->input('title'));
+            $module->image = $imagePath;
+            $module->stat = $request->input('stat'); // Soit Debutant, Intermediare ou Avancé
+            $module->duration = $request->input('duration');
+            $module->formation_id = $request->input('formation');
+            $module->save();
+
+            if($module->save()){
+                return response()->json([
+                    'success' => 'Module créee avec succès',
+                ], 200);
+            }
+
+            {
 
     }
 

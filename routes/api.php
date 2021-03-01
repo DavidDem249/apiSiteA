@@ -60,6 +60,9 @@ Route::apiResource('demande', DemandesController::class);
 
 // });
 Route::get('formateur', [FormateurController::class, 'index']);
+//Route::post('store-formateur', [FormateurController::class, 'store']);
+
+Route::post('agiles-formateur', [FormateurController::class, 'candidater']);
 
 Route::post('contact', [ContactController::class, 'store']);
 

@@ -39,20 +39,30 @@ class FormationController extends Controller
         // $filename = time(). '.' .$path->getClientOriginalExtension();
         // Storage::put($filename);
         // Storage::move($filename, 'public/formation/' . $filename);
+        if($request->hasFile('image')){
 
-        $formation = new Formation();
-        $formation->title = $request->input('title');
-        $formation->slug = Str::slug($request->input('title'));
-        $formation->image = "image";
-        $formation->domain_id = $request->input('domain');
-        $formation->save();
+            $photo = $request->file('image')
+            $name = $photo->getClientOriginalName();
+            $imagePath = $photo->move('formation/photo', $name);
 
-        if($formation->save()){
+            //Insertion
+            $formation = new Formation();
+            $formation->title = $request->input('title');
+            $formation->slug = Str::slug($request->input('title'));
+            $formation->image = $imagePath;
+            $formation->domain_id = $request->input('domain');
+            $formation->save();
+
+            if($formation->save()){
+                return response()->json([
+                    'success' => 'Formation créee avec succès',
+                ], 200);
+            }
+        }else{
             return response()->json([
-                'success' => 'Formation créee avec succès',
-            ], 200);
-        }
-
+                "message" => "Envoyé un fichier svp"
+            ],401);
+        }  
     }
 
     /**

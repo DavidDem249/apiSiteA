@@ -54,7 +54,8 @@ class DownloadRessourceController extends Controller
 
         //$file = realPath($resource_id->fichier);
         $filename = $resource_id->name;
-        
+        $file = asset($resource_id->fichier);
+        //dd($file);
         //$filename = 'temp-image.jpg';
         
 
@@ -73,16 +74,17 @@ class DownloadRessourceController extends Controller
                 ->cc('daouda.dembele@agilestelecoms.com')
                 ->Send(new SendMailSuccess($data));
 
-            $tempImage = tempnam(sys_get_temp_dir(), $filename);
+            //$tempImage = tempnam(sys_get_temp_dir(), $filename);
             //dd($tempImage);
-            copy(realPath($resource_id->fichier), $tempImage);
+            //copy(realPath($resource_id->fichier), $tempImage);
 
-            return response()->download($tempImage, $filename);
+            //return response()->download($tempImage, $filename);
             //return response()->download($file);
-            /*
+        
             return response()->json([
                 'link_ressoure' => $file
-            ]); */
+            ]); 
+            
 
         }else{
             return response()->json([

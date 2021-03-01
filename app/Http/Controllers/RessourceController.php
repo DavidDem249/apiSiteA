@@ -60,11 +60,10 @@ class RessourceController extends Controller
                         $pathIllustration = $illust->move('agilesRessources/photo', $nameIllust);
 
                         
-                        
-
                         //$pathFichier = $fichier->store('agilesRessources','public');
                         $nameFichier = $fichier->getClientOriginalName();
                         $pathFichier = $fichier->move('agilesRessources', $nameFichier);
+                        //dd(storage_path($pathIllustration));
                         //dd(realPath($pathFichier));
                         //dd($pathFichier);
                         

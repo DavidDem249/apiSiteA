@@ -63,6 +63,9 @@ class RessourceController extends Controller
                         //$pathFichier = $fichier->store('agilesRessources','public');
                         $nameFichier = $fichier->getClientOriginalName();
                         $pathFichier = $fichier->move('agilesRessources', $nameFichier);
+                        $link_url_illustration = asset($pathIllustration);
+                        $link_url_fichier = asset($pathFichier);
+                        //dd($link_url_fichier);
                         //dd(storage_path($pathIllustration));
                         //dd(realPath($pathFichier));
                         //dd($pathFichier);
@@ -71,8 +74,8 @@ class RessourceController extends Controller
                         //store your file into directory and db
                         $ressource = new Ressource();
                         $ressource->title = $request->title;
-                        $ressource->illustration = $pathIllustration;
-                        $ressource->fichier= $pathFichier;
+                        $ressource->illustration = $link_url_illustration;
+                        $ressource->fichier= $link_url_fichier;
                         $ressource->name = $nameFichier;
                         $ressource->description = $request->description;
                         $ressource->save();
@@ -81,7 +84,7 @@ class RessourceController extends Controller
                         return response()->json([
                             "success" => true,
                             "message" => "File successfully uploaded",
-                           // "fichier" => $pathFichier
+                            //"ressource" => $ressource
                         ]);
                     }   
                 }

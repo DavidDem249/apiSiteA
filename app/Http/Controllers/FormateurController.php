@@ -78,6 +78,7 @@ class FormateurController extends Controller
             'email' => 'required|email|max:255',
             'lien_linkdin' => 'required',
             'domaine' => 'required',
+            'cv' => 'required',
             //'g-recaptcha-response' => 'required|recaptcha'
         ]);
         //dd($validate);
@@ -97,7 +98,34 @@ class FormateurController extends Controller
         {
             // if($response->success)
             // {
-            Formateur::create($request->all());
+            if($request->hasFile('cv')){
+                $cv = $data['cv'];
+                $nameCv = $cv->getClientOriginalName();
+                $pathCv = $cv->move('agilesRessources', $nameCv);
+                $link_url_cv = asset($pathCv);
+
+            }
+            // else{
+            //     return response()->json([
+            //         'success' => false,
+            //     ], 404);
+            // }
+
+            //Formateur::create($request->all());
+            //dd($data);
+            $data['cv'] = $link_url_cv;
+            
+            $formateur = new Formateur();
+            $formateur->nom = $data['nom'];
+            $formateur->prenom = $data['prenom'];
+            $formateur->phone = $data['phone'];
+            $formateur->email = $data['email'];
+            $formateur->lien_linkdin = $data['lien_linkdin'];
+            $formateur->domaine = $data['domaine'];
+            $formateur->cv = $link_url_cv;
+            $formateur->save();
+
+
             Mail::to('david.kouakou@agilestelecoms.com')
                 ->cc('daouda.dembele@agilestelecoms.com')
                 ->Send(new Message($data));
@@ -107,6 +135,11 @@ class FormateurController extends Controller
                 'message' => 'Votre demande a bien été effectuée avec succès',
             ], 200);
             // }
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Veilliez bien remplir les champs',
+            ], 200);
         }
     }
 

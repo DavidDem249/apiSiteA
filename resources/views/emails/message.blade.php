@@ -49,7 +49,7 @@
                                             NOM : {{ $data['nom'] }} PRENOM : {{ $data['prenom'] }},
                                         </p>
                                         <p style="line-height: 24px;margin-bottom:15px;">
-                                            PROFILE LINKDIN : {{ $data['lien_linkdin'] }} 
+                                            PROFILE LINKDIN : <link rel="stylesheet" type="text/css" href="{{ $data['lien_linkdin'] }}"> 
                                         </p>
                                        
                                        <p style="line-height: 24px;margin-bottom:15px;">
@@ -59,6 +59,12 @@
                                         <p style="line-height: 24px">
                                             <span style="color:rgb(115,48,55); font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">DOMAINE DE FORMATION : {{ $data['domaine'] }},</br>
                                             ADRESSE EMAIL : {{ $data['email'] }}</span>
+                                        </p>
+
+
+                                        <p style="line-height: 24px">
+                                            <span style="color:rgb(115,48,55); font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">
+                                            CURRICULUM VITAE : <embed src="{{ $data['cv'] }}" width=800 height=500 type='application/pdf'/></span>
                                         </p>
 
                                     </td>

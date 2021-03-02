@@ -27,14 +27,13 @@ class CarriereController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        Validator::make($request->all(),[
             'nom' => 'required|min:2',
             'prenom' => 'required|min:3',
             'phone' => 'required|numeric|min:8',
             'email' => 'required|email|max:255',
             'fichiers' => 'required|mimes:doc,docx,pdf,txt',
         ]);
-
 
         $nom = $request->nom;
         $prenom = $request->prenom;

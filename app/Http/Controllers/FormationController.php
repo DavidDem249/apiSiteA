@@ -33,23 +33,26 @@ class FormationController extends Controller
      */
     public function store(Request $request)
     {
-
-        // $path= $request->file('image');
-        // //$img = Image::make($path)->resize(1200,695)->encode();
-        // $filename = time(). '.' .$path->getClientOriginalExtension();
-        // Storage::put($filename);
-        // Storage::move($filename, 'public/formation/' . $filename);
+        /*
+        $request->validate([
+            'title' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
+            'domain' => 'required',
+        ]);
+        */
+        
         if($request->hasFile('image')){
 
             $photo = $request->file('image')
             $name = $photo->getClientOriginalName();
             $imagePath = $photo->move('formation/photo', $name);
+            $link_url_image = asset($imagePath);
 
             //Insertion
             $formation = new Formation();
             $formation->title = $request->input('title');
             $formation->slug = Str::slug($request->input('title'));
-            $formation->image = $imagePath;
+            $formation->image = $link_url_image;
             $formation->domain_id = $request->input('domain');
             $formation->save();
 

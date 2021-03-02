@@ -51,10 +51,6 @@ class ContactController extends Controller
          ],
       ]);
 
-     //echo $response->getStatusCode(); // 200
-     //echo $response->getHeaderLine('content-type'); // 'application/json; charset=utf8'
-     //echo $response->getBody(); // '{"id": 1420053, "name": "guzzle", ...}'
-
 
      $response = json_decode((string) $response->getBody(), true);
      //dd($response);

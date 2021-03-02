@@ -31,7 +31,7 @@ class FormateurController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $validate = $request->validate([
             'nom' => 'required|min:3',
             'prenom' => 'required|min:3',
@@ -81,23 +81,11 @@ class FormateurController extends Controller
             'cv' => 'required',
             //'g-recaptcha-response' => 'required|recaptcha'
         ]);
-        //dd($validate);
-
-        // $secret = \config('captcha.v2-checkbox');
-
-        // $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify',[
-        //       'secret' => $secret,
-        //       'response' => $request['g-recaptcha-response'],
-        // ]);
-
-        // session()->put([
-        //     'payload' => $response->body(),
-        // ]);
-
+        
         if($data)
         {
-            // if($response->success)
-            // {
+            
+            // 
             if($request->hasFile('cv')){
                 $cv = $data['cv'];
                 $nameCv = $cv->getClientOriginalName();
@@ -105,14 +93,7 @@ class FormateurController extends Controller
                 $link_url_cv = asset($pathCv);
 
             }
-            // else{
-            //     return response()->json([
-            //         'success' => false,
-            //     ], 404);
-            // }
-
-            //Formateur::create($request->all());
-            //dd($data);
+            // 
             $data['cv'] = $link_url_cv;
             
             $formateur = new Formateur();

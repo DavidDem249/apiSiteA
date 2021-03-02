@@ -43,17 +43,33 @@ class DomainController extends Controller
         // Storage::put($filename);
         // Storage::move($filename, 'public/domain/' . $filename);
 
-        $domain = new Domain();
-        $domain->title = $request->input('title');
-        $domain->slug = Str::slug($request->input('title'));
-        $domain->image = 'image';
-        $domain->store_id = $request->input('store');
-        $domain->save();
+        /*
+        $request->validate([
+            'title' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg,gif',
+            'store' => 'required',
+        ]);
+        */
+        if($request->hasFile('image')){
 
-        if($domain->save()){
-            return response()->json([
-                'success' => 'La création du domaine effectué avec succès',
-            ], 200);
+            $photo = $request->file('image');
+            $name = $photo->getClientOriginalName();
+            $imagePath = $photo->move('domain/photo', $name);
+
+            $link_url_image = asset($imagePath);
+
+            $domain = new Domain();
+            $domain->title = $request->input('title');
+            $domain->slug = Str::slug($request->input('title'));
+            $domain->image = $link_url_image;
+            $domain->store_id = $request->input('store');
+            $domain->save();
+
+            if($domain->save()){
+                return response()->json([
+                    'success' => 'La création du domaine effectué avec succès',
+                ], 200);
+            }
         }
     }
 

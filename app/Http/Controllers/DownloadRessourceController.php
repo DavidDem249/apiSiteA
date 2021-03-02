@@ -59,27 +59,14 @@ class DownloadRessourceController extends Controller
         //$filename = 'temp-image.jpg';
         
 
-        //$file = '/var/www/html/api-agilestelecoms/storage/app/public/'.$resource_id->fichier;
-        //$file = public_path('storage').'/agilesRessources/DOIgWtWDXlQIYAgKYeHmZ84mSfGSOPRyCdLqxqx6.pdf';
-        //dd($file);
-
         if($saving->save()) {
 
-            // return response()->json([
-            //     "success" => true,
-            //     "message" => "Données enregistrée avec succès",
-            //     "fichier" => $saving
-            // ]);
+            // Envoie de Mail
             Mail::to('david.kouakou@agilestelecoms.com')
                 ->cc('daouda.dembele@agilestelecoms.com')
-                ->Send(new SendMailSuccess($data));
+                ->Send(new SendMailSuccess($data)); 
 
-            //$tempImage = tempnam(sys_get_temp_dir(), $filename);
-            //dd($tempImage);
-            //copy(realPath($resource_id->fichier), $tempImage);
-
-            //return response()->download($tempImage, $filename);
-            //return response()->download($file);
+            //Réponse 
         
             return response()->json([
                 'link_ressoure' => $file

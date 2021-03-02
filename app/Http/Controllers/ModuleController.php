@@ -50,11 +50,12 @@ class ModuleController extends Controller
             $photo = $request->file('image')
             $name = $photo->getClientOriginalName();
             $imagePath = $photo->move('module/photo', $name);
+            $link_url_image = asset($imagePath);
 
             $module = new Module();
             $module->title = $request->input('title');
             $module->slug = Str::slug($request->input('title'));
-            $module->image = $imagePath;
+            $module->image = $link_url_image;
             $module->stat = $request->input('stat'); // Soit Debutant, Intermediare ou Avancé
             $module->duration = $request->input('duration');
             $module->formation_id = $request->input('formation');
@@ -62,7 +63,7 @@ class ModuleController extends Controller
 
             if($module->save()){
                 return response()->json([
-                    'success' => 'Module créee avec succès',
+                    'success' => 'Module crée avec succès',
                 ], 200);
             }
 

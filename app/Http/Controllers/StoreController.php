@@ -44,18 +44,28 @@ class StoreController extends Controller
         // $filename = time(). '.' .$path->getClientOriginalExtension();
         // Storage::put($filename);
         // Storage::move($filename, 'public/store/' . $filename);
+        $request->validate([
+            'title' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg,gif',
+        ]);
+
+        /*if($validator->fails()){          
+            return response()->json(['error'=>$validator->errors()], 401);
+        }*/
 
         if($request->hasFile('image')){
 
-            $photo = $request->file('image')
+            $photo = $request->file('image');
             $name = $photo->getClientOriginalName();
             $imagePath = $photo->move('store/photo', $name);
 
+            $link_url_image = asset($imagePath);
+            //dd($link_url_image);
             //Insertion bd
             $store = new Store();
             $store->title = $request->input('title');
             $store->slug = Str::slug($request->input('title'));
-            $store->image = $imagePath;
+            $store->image = $link_url_image;
             $store->save();
 
             if($store->save()){

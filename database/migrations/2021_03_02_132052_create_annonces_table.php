@@ -18,19 +18,18 @@ class CreateAnnoncesTable extends Migration
             $table->string('title');
             $table->string('entreprise');
             $table->string('phone');
-            $table->string('duration');
-            $table->string('marge_debut');
-            $table->string('marge_salaire');
+            $table->string('duration')->nullable();
+            $table->string('marge_salaire')->nullable();
             $table->text('description_profil');
             $table->text('description_dossier');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('localisation');
             $table->string('email');
             $table->string('date');
             $table->string('contrat_type');
-            $table->string('marge_salarial');
+            $table->string('marge_salarial')->nullable();
             $table->text('description_annonce');
-            $table->string('type_travail');
+            $table->string('type_travail')->nullable();
 
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ class AnnonceController extends Controller
      */
     public function index()
     {
-        $annonces = Annonce::orderby('created_at', 'DESC')->get();
+        $annonces = Annonce::orderby('created_at', 'DESC')->where('status',1)->get();
         return AnnonceResource::collection($annonces);
     }
 

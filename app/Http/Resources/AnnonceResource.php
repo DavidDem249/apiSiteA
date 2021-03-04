@@ -35,6 +35,7 @@ class AnnonceResource extends JsonResource
             'marge_salarial' => $this->marge_salarial,
             'description_annonce' => $this->description_annonce,
             'type_travail' => $this->type_travail,
+            'status' => $this->status,
             //'created_at' => $this->created_at,
             //'updated_at' => $this->updated_at,
             //'domain' => ResourceDomain::collection($this->domains),

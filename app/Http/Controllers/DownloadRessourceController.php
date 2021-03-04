@@ -70,14 +70,14 @@ class DownloadRessourceController extends Controller
         
             return response()->json([
                 'link_ressoure' => $file
-            ]); 
+            ],201); 
             
 
         }else{
             return response()->json([
                 "success" => false,
                 "message" => "échec d'enregistrement",
-            ]);
+            ],400);
         }
 
     }

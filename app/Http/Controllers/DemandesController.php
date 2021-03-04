@@ -45,12 +45,12 @@ class DemandesController extends Controller
           return response()->json([
             'success' => true,
             'message' => 'Démande de formation effectuée avec succès',
-          ], 200);
+          ], 201);
       }else{
           return response()->json([
             'success' => false,
             'message' => 'Démande de formation non effectuée',
-          ], 401);
+          ], 400);
       }
   }
 

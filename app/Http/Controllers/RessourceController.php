@@ -85,7 +85,7 @@ class RessourceController extends Controller
                             "success" => true,
                             "message" => "File successfully uploaded",
                             //"ressource" => $ressource
-                        ]);
+                        ], 201);
                     }   
                 }
             }else{

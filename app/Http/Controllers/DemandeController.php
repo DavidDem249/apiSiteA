@@ -54,7 +54,7 @@ class DemandeController extends Controller
         if($demandeur->save()){
            return response()->json([
               'success' => 'Démande de formation effectué avec succès',
-          ], 200);
+          ], 201);
         }
     }
 

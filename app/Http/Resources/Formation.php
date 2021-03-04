@@ -21,8 +21,8 @@ class Formation extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'image' => $this->image,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            //'created_at' => $this->created_at,
+            //'updated_at' => $this->updated_at,
             'modules' => ResourceModule::collection($this->modules),
         ];
     }

@@ -114,13 +114,13 @@ class FormateurController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Votre demande a bien été effectuée avec succès',
-            ], 200);
+            ], 201);
             // }
         }else{
             return response()->json([
                 'success' => false,
                 'message' => 'Veilliez bien remplir les champs',
-            ], 200);
+            ], 400);
         }
     }
 

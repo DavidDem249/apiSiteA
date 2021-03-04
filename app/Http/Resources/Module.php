@@ -25,8 +25,8 @@ class Module extends JsonResource
             'stat' => $this->stat,
             'duration' => $this->duration,
             //'store_id' => ResourceStore::collection($this->domains),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            //'created_at' => $this->created_at,
+            //'updated_at' => $this->updated_at,
             'plan' => new ResourcePlan($this->plan),
             'demandeur' => new ResourceDemande($this->demandes),
         ];

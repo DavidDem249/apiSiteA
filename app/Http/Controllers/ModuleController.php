@@ -47,7 +47,7 @@ class ModuleController extends Controller
         // Storage::move($filename, 'public/module/' . $filename);
         if($request->hasFile('image')){
 
-            $photo = $request->file('image')
+            $photo = $request->file('image');
             $name = $photo->getClientOriginalName();
             $imagePath = $photo->move('module/photo', $name);
             $link_url_image = asset($imagePath);
@@ -64,10 +64,10 @@ class ModuleController extends Controller
             if($module->save()){
                 return response()->json([
                     'success' => 'Module crée avec succès',
-                ], 200);
+                ], 201);
             }
 
-            {
+        }
 
     }
 

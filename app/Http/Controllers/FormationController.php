@@ -43,7 +43,7 @@ class FormationController extends Controller
         
         if($request->hasFile('image')){
 
-            $photo = $request->file('image')
+            $photo = $request->file('image');
             $name = $photo->getClientOriginalName();
             $imagePath = $photo->move('formation/photo', $name);
             $link_url_image = asset($imagePath);
@@ -64,7 +64,7 @@ class FormationController extends Controller
         }else{
             return response()->json([
                 "message" => "Envoyé un fichier svp"
-            ],401);
+            ],400);
         }  
     }
 

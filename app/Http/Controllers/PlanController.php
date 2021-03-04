@@ -42,7 +42,7 @@ class PlanController extends Controller
         if($plan->save()){
             return response()->json([
                 'success' => 'Détail module créee avec succès',
-            ], 200);
+            ], 201);
         }
     }
 

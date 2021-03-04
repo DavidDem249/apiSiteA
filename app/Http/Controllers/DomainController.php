@@ -68,7 +68,7 @@ class DomainController extends Controller
             if($domain->save()){
                 return response()->json([
                     'success' => 'La création du domaine effectué avec succès',
-                ], 200);
+                ], 201);
             }
         }
     }

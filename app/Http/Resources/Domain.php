@@ -23,8 +23,8 @@ class Domain extends JsonResource
             'slug' => $this->slug,
             'image' => $this->image,
             //'store_id' => new ResourceStore($this->store),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            //'created_at' => $this->created_at,
+            //'updated_at' => $this->updated_at,
             'formations' => ResourceFormation::collection($this->formations),
         ];
     }

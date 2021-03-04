@@ -71,7 +71,7 @@ class StoreController extends Controller
             if($store->save()){
                 return response()->json([
                     'success' => 'La création du store effectué avec succès',
-                ], 200);
+                ], 201);
             }
         }
         

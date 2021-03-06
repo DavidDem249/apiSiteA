@@ -14,7 +14,7 @@
 
                             <div style="line-height: 35px">
 
-                                OBJET :  CANDIDATURE AU POSTE DE {{ $data['annonce_title'] }}
+                                POSTE :  {{ $data['annonce_title'] }}
 
                             </div>
                         </td>
@@ -56,7 +56,10 @@
                                         <p style="line-height: 24px;margin-bottom:15px;">
                                            EMAIL & PHONE: {{ $data['email']}} {{ $data['phone'] }}
                                         </p>
-                                        
+                                        <br><br>
+                                        <p style="line-height: 24px;margin-bottom:15px;">
+                                           <a href="{{ $data['cv']}}">Voir le cv</a> 
+                                        </p>
                                     </td>
                                 </tr>
                             </table>

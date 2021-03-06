@@ -45,7 +45,7 @@ class PostulerController extends Controller
         $annonce_title = $annonce->title;
 
         $data['annonce_title'] = $annonce_title;
-        
+        //dd($data);
         /*
         $nom = $request->nom;
         $prenom = $request->prenom;
@@ -69,6 +69,9 @@ class PostulerController extends Controller
             //dd($cvPath);
             $link_url_cv = asset($cvPath);
             //dd($link_url_cv);
+
+            $data['cv'] = $link_url_cv;
+            //dd($data);
 
             $postulant = new Postuler();
             $postulant->nom = $data['nom'];

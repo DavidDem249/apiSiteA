@@ -14,7 +14,7 @@
 
                             <div style="line-height: 35px">
 
-                                OBJET :  CANDIDATURE SPONTANNEE
+                                OBJET :  DEMANDE DE POSTE 
                             </div>
                         </td>
                     </tr>

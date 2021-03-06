@@ -34,7 +34,8 @@ class PostulerController extends Controller
             'prenom' => 'required',
             'email' => 'required|email|max:255',
             'phone' => 'required|min:8',
-            'cv' => 'required|mimes:doc,docx,pdf,txt',
+            'cv' => 'nullable|mimes:doc,docx,pdf,txt',
+            'motivation' => 'nullable',
             //'annonce_id' => 'required',
             'annonce_title' => 'nullable',
         ]);
@@ -46,13 +47,14 @@ class PostulerController extends Controller
         //dd($annonce);
         //$annonce = Annonce::find($annonce);
        
-        $nom = $data['nom'];
-        $prenom = $data['prenom'];
-        $phone = $data['phone'];
-        $email = $data['email'];
-        $cv = $data['cv'];
+        $nom = $request->nom;
+        $prenom = $request->prenom;
+        $phone = $request->phone;
+        $email = $request->email;
+        $cv = $request->cv;
+        $motivation = $request->motivation;
         //dd($data);
-        $description = "<br/><br/>Candidature au poste de : $annonce_title <br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/> Cv: $cv";
+        $description = "<br/><br/>Candidature au poste de : $annonce_title <br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/> Motivation : $motivation <br/><br/> CV : $cv";
 
         $emailAgile = 'daouda.dembele@agilestelecoms.com';
 
@@ -60,9 +62,9 @@ class PostulerController extends Controller
         //dd($data);
         if($request->hasFile('cv'))
         {
-            $myCv = $request->file('cv');
+            //$myCv = $request->file('cv');
             //dd($cv);
-            //$cv = $request->file('cv');
+            $myCv = $request->file('cv');
             $cvName = $myCv->getClientOriginalName();
             $cvPath = $myCv->move('recrutement/cv', $cvName);
             //dd($cvPath);
@@ -76,14 +78,14 @@ class PostulerController extends Controller
             $postulant->phone = $data['phone'];
 
             $postulant->cv = $link_url_cv;
-
+            $postulant->motivation = $data['motivation'];
             $postulant->annonce_id = $annonce->id;
 
             $postulant->save();
 
             if($postulant->save())
             {
-                /*
+                
                 Mail::send([], [], function ($message) use ($nom,$email,$description,$emailAgile, $cv, $request) {
 
                     $message->to($emailAgile)
@@ -100,7 +102,7 @@ class PostulerController extends Controller
                         );
                     }
                 });
-                */
+                
                 return response()->json([
                     'success' => 'true',
                     'postulant' => $postulant,

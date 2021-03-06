@@ -15,7 +15,6 @@ class CreatePostulersTable extends Migration
     {
         Schema::create('postulers', function (Blueprint $table) {
             $table->id();
-
             $table->string('nom');
             $table->string('prenom');
             $table->string('email');

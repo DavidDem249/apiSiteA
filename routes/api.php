@@ -80,7 +80,7 @@ Route::delete('annonces/{annonce_id}',[AnnonceController::class, 'destroy']);
 Route::post('postuler/{annonce}', [PostulerController::class, 'store']);
 
 Route::post('faire-annonce', [AnnonceController::class, 'store']);
-//Route::post('recrutement',[CarriereController::class, 'store']);
+Route::post('recrutement',[CarriereController::class, 'store']);
 
 //Route::post('/captcha/submit',[RecaptchaController::class, 'recaptcha'])->name('recaptcha');
 

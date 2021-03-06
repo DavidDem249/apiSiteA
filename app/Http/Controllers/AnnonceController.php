@@ -94,7 +94,7 @@ class AnnonceController extends Controller
                 $annonce->description_annonce = $request->description_annonce;
                 $annonce->type_travail = $request->type_travail;
 
-                Mail::to('daouda.dembele@agilestelecoms.com')
+                Mail::to('david.kouakou@agilestelecoms.com')
                     ->cc('daouda.dembele@agilestelecoms.com')
                     ->Send(new MailAnnonce($data)); 
 

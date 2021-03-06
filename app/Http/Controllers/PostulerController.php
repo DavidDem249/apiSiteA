@@ -43,10 +43,7 @@ class PostulerController extends Controller
         $annonce_title = $annonce->title;
 
         $data['annonce_title'] = $annonce_title;
-        //dd($data);
-        //dd($annonce);
-        //$annonce = Annonce::find($annonce);
-       
+    
         $nom = $request->nom;
         $prenom = $request->prenom;
         $phone = $request->phone;
@@ -58,13 +55,10 @@ class PostulerController extends Controller
         $description = "<br/><br/>Candidature au poste de : $annonce_title <br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/>Motivation : $motivation <br/><br/>"."<br/><br/>CV : $cv";
 
         $emailAgile = 'daouda.dembele@agilestelecoms.com';
-        // dd($description);
-        //$file = $request->file('cv');
-        //dd($data);
+        
         if($request->hasFile('cv'))
         {
-            //$myCv = $request->file('cv');
-            //dd($cv);
+           
             $myCv = $request->file('cv');
             $cvName = $myCv->getClientOriginalName();
             $cvPath = $myCv->move('postuler/cv', $cvName);

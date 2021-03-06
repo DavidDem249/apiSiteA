@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Carriere;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\MailRecrutement;
 
 class CarriereController extends Controller
 {
@@ -27,56 +28,47 @@ class CarriereController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(),[
+        $data = $request->validate([
             'nom' => 'required|min:2',
             'prenom' => 'required|min:3',
             'phone' => 'required|numeric|min:8',
             'email' => 'required|email|max:255',
             'fichiers' => 'required|mimes:doc,docx,pdf,txt',
         ]);
+       
 
-        $nom = $request->nom;
-        $prenom = $request->prenom;
-        $phone = $request->phone;
-        $email = $request->email;
-        $fichiers = $request->fichiers;
+        if($request->hasFile('fichiers')){
+            
+            $cv = $request->file('fichiers');
+            $name = $cv->getClientOriginalName();
+            $CvPath = $cv->move('recrutement/cv', $name);
+            $link_url_cv = asset($CvPath);
+            //dd($link_url_cv);
 
-        $description = "<br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/> Cv: $fichiers";
+            $spontanne = new Carriere();
+            $spontanne->nom = $request->nom;
+            $spontanne->prenom = $request->prenom;
+            $spontanne->phone = $request->phone;
+            $spontanne->email = $request->email;
+            $spontanne->fichiers = $link_url_cv;
+            $spontanne->save();
 
-        $emailAgile = 'daouda.dembele@agilestelecoms.com';
+            if($spontanne->save())
+            {
 
-        //$file = $request->file('cv');
-        Mail::send([], [], function ($message) use ($nom,$email,$description,$emailAgile, $fichiers, $request) {
-            $message->to($emailAgile)
-                ->from($emailAgile,$nom)
-                ->replyTo($emailAgile)
-                ->subject("AGILES TELECOMS - RECRUTEMENT")
-                ->setBody("<html>$description</html>", 'text/html'); // for HTML rich messages
+                Mail::to('daouda.dembele@agilestelecoms.com')
+                    ->cc('daouda.dembele@agilestelecoms.com')
+                    ->Send(new MailRecrutement($data)); 
 
-            if($request->hasFile('fichiers')){
-                
-                $cv = $request->file('fichiers');
-                $name = $cv->getClientOriginalName();
-                $CvPath = $cv->move('recrutement/cv', $name);
-                $link_url_cv = asset($CvPath);
-                //dd($link_url_cv);
-
-                $spontanne = new Carriere();
-                $spontanne->nom = $request->nom;
-                $spontanne->prenom = $request->prenom;
-                $spontanne->phone = $request->phone;
-                $spontanne->email = $request->email;
-                $spontanne->fichiers = $link_url_cv;
-                $spontanne->save();
-
-                $message->attach($fichiers->getRealPath(), array(
-                    'as' => $fichiers->getClientOriginalName(), // If you want you can chnage original name to custom name      
-                    'mime' => $fichiers->getMimeType())
-                );
+                return response()->json([
+                    'success' => 'true',
+                    'postulant' => $spontanne,
+                ], 200);
             }
-        });
+        }
+        /*});*/
         
-        return response()->json('OK', 200);
+        
     }
 
     /**

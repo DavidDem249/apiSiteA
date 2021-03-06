@@ -11,14 +11,16 @@ class MailRecrutement extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $data;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(array $data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +30,8 @@ class MailRecrutement extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.recrutement');
+        return $this->from("daouda.dembele@agilestelecoms.com")
+                ->subject('AGILES TELECOMS - DEMANDE DE POSTE')
+                ->view('emails.recrutement');
     }
 }

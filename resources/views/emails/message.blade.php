@@ -48,9 +48,7 @@
                                         <p style="line-height: 24px; margin-bottom:15px;">
                                             NOM : {{ $data['nom'] }} PRENOM : {{ $data['prenom'] }},
                                         </p>
-                                        <p style="line-height: 24px;margin-bottom:15px;">
-                                            PROFILE LINKDIN : <link rel="stylesheet" type="text/css" href="{{ $data['lien_linkdin'] }}"> 
-                                        </p>
+                                        
                                        
                                        <p style="line-height: 24px;margin-bottom:15px;">
                                              MOBILE PHONE : {{ $data['phone'] }}

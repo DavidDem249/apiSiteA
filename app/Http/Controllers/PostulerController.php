@@ -48,7 +48,8 @@ class PostulerController extends Controller
         $prenom = $request->prenom;
         $phone = $request->phone;
         $email = $request->email;
-        $cv = $request->cv;
+        //$cv = $request->cv;
+        $cv = $request->file('cv');
         //$cv = asset($cv);
         $motivation = $request->motivation;
         //dd($data);
@@ -59,9 +60,9 @@ class PostulerController extends Controller
         if($request->hasFile('cv'))
         {
            
-            $myCv = $request->file('cv');
-            $cvName = $myCv->getClientOriginalName();
-            $cvPath = $myCv->move('postuler/cv', $cvName);
+            //$myCv = $request->file('cv');
+            $cvName = $cv->getClientOriginalName();
+            $cvPath = $cv->move('postuler/cv', $cvName);
             //dd($cvPath);
             $link_url_cv = asset($cvPath);
             //dd($link_url_cv);

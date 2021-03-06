@@ -87,35 +87,42 @@ class FormateurController extends Controller
             
             // 
             if($request->hasFile('cv')){
+
                 $cv = $data['cv'];
                 $nameCv = $cv->getClientOriginalName();
-                $pathCv = $cv->move('agilesRessources', $nameCv);
+                $pathCv = $cv->move('agilesRessources/formateurCv', $nameCv);
                 $link_url_cv = asset($pathCv);
 
-            }
-            // 
-            $data['cv'] = $link_url_cv;
+                $data['cv'] = $link_url_cv;
             
-            $formateur = new Formateur();
-            $formateur->nom = $data['nom'];
-            $formateur->prenom = $data['prenom'];
-            $formateur->phone = $data['phone'];
-            $formateur->email = $data['email'];
-            $formateur->lien_linkdin = $data['lien_linkdin'];
-            $formateur->domaine = $data['domaine'];
-            $formateur->cv = $link_url_cv;
-            $formateur->save();
+                $formateur = new Formateur();
+                $formateur->nom = $data['nom'];
+                $formateur->prenom = $data['prenom'];
+                $formateur->phone = $data['phone'];
+                $formateur->email = $data['email'];
+                $formateur->lien_linkdin = $data['lien_linkdin'];
+                $formateur->domaine = $data['domaine'];
+                $formateur->cv = $link_url_cv;
+                $formateur->save();
 
 
-            Mail::to('david.kouakou@agilestelecoms.com')
-                ->cc('daouda.dembele@agilestelecoms.com')
-                ->Send(new Message($data));
+                Mail::to('david.kouakou@agilestelecoms.com')
+                    ->cc('daouda.dembele@agilestelecoms.com')
+                    ->Send(new Message($data));
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Votre demande a bien été effectuée avec succès',
-            ], 201);
-            // }
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Votre demande a bien été effectuée avec succès',
+                ], 201);
+
+
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Veilliez choisir un fichier valide svp',
+                ], 400);
+            }
+
         }else{
             return response()->json([
                 'success' => false,

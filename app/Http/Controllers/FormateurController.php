@@ -100,7 +100,7 @@ class FormateurController extends Controller
                 $formateur->prenom = $data['prenom'];
                 $formateur->phone = $data['phone'];
                 $formateur->email = $data['email'];
-                $formateur->lien_linkdin = $data['lien_linkdin'];
+                $formateur->lien_linkdin = $data['lien_linkdin'] ?? "";
                 $formateur->domaine = $data['domaine'];
                 $formateur->cv = $link_url_cv;
                 $formateur->save();

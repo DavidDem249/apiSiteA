@@ -40,8 +40,9 @@ class CarriereController extends Controller
         if($request->hasFile('fichiers')){
             
             $cv = $request->file('fichiers');
-            $name = $cv->getClientOriginalName();
-            $CvPath = $cv->move('recrutement/cv', $name);
+            //$name = $cv->getClientOriginalName();
+            $cvName = date('YmdHis') . "." . $cv->getClientOriginalExtension();
+            $CvPath = $cv->move('recrutement/cv', $cvName);
             $link_url_cv = asset($CvPath);
             //dd($link_url_cv);
 

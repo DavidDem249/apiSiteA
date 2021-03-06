@@ -64,7 +64,12 @@ class PostulerController extends Controller
         {
            
             $cv = $request->file('cv');
-            $cvName = $cv->getClientOriginalName();
+            $time = time();
+
+            //$cvName = $cv->getClientOriginalName();
+            //$cvExtension = $cv->getClientOriginalExtension();
+            $cvName = date('YmdHis') . "." . $cv->getClientOriginalExtension();
+            //dd($cvExtension);
             $cvPath = $cv->move('recrutement/cv', $cvName);
             //dd($cvPath);
             $link_url_cv = asset($cvPath);

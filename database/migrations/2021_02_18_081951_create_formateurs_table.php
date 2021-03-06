@@ -18,7 +18,7 @@ class CreateFormateursTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('phone');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('lien_linkdin')->nullable();
             $table->string('domaine');
             $table->timestamps();

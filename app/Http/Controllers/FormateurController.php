@@ -89,8 +89,9 @@ class FormateurController extends Controller
             if($request->hasFile('cv')){
 
                 $cv = $data['cv'];
-                $nameCv = $cv->getClientOriginalName();
-                $pathCv = $cv->move('agilesRessources/formateurCv', $nameCv);
+                //$nameCv = $cv->getClientOriginalName();
+                $cvName = date('YmdHis') . "." . $cv->getClientOriginalExtension();
+                $pathCv = $cv->move('agilesRessources/formateurCv', $cvName);
                 $link_url_cv = asset($pathCv);
 
                 $data['cv'] = $link_url_cv;

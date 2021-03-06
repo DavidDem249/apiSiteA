@@ -76,7 +76,7 @@ class FormateurController extends Controller
             'prenom' => 'required|min:3',
             'phone' => 'required|min:8',
             'email' => 'required|email|max:255',
-            'lien_linkdin' => 'required',
+            'lien_linkdin' => 'nullable',
             'domaine' => 'required',
             'cv' => 'required',
             //'g-recaptcha-response' => 'required|recaptcha'

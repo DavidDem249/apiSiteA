@@ -43,7 +43,7 @@ class CarriereController extends Controller
 
         $description = "<br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/> Cv: $fichiers";
 
-        $emailAgile = 'david.kouakou@agilestelecoms.com';
+        $emailAgile = 'daouda.dembele@agilestelecoms.com';
 
         //$file = $request->file('cv');
         Mail::send([], [], function ($message) use ($nom,$email,$description,$emailAgile, $fichiers, $request) {
@@ -55,6 +55,20 @@ class CarriereController extends Controller
 
             if($request->hasFile('fichiers')){
                 
+                $cv = $request->file('fichiers');
+                $name = $cv->getClientOriginalName();
+                $CvPath = $cv->move('recrutement/cv', $name);
+                $link_url_cv = asset($CvPath);
+                //dd($link_url_cv);
+
+                $spontanne = new Carriere();
+                $spontanne->nom = $request->nom;
+                $spontanne->prenom = $request->prenom;
+                $spontanne->phone = $request->phone;
+                $spontanne->email = $request->email;
+                $spontanne->fichiers = $link_url_cv;
+                $spontanne->save();
+
                 $message->attach($fichiers->getRealPath(), array(
                     'as' => $fichiers->getClientOriginalName(), // If you want you can chnage original name to custom name      
                     'mime' => $fichiers->getMimeType())

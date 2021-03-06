@@ -64,7 +64,7 @@ class ModuleController extends Controller
             if($module->save()){
                 return response()->json([
                     'success' => 'Module crée avec succès',
-                ], 201);
+                ], 200);
             }
 
         }

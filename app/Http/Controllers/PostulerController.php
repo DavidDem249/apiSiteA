@@ -8,6 +8,8 @@ use App\Models\Postuler;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Annonce;
 
+use App\Mail\MailPostuler;
+
 class PostulerController extends Controller
 {
     /**
@@ -43,7 +45,8 @@ class PostulerController extends Controller
         $annonce_title = $annonce->title;
 
         $data['annonce_title'] = $annonce_title;
-    
+        
+        /*
         $nom = $request->nom;
         $prenom = $request->prenom;
         $phone = $request->phone;
@@ -56,11 +59,11 @@ class PostulerController extends Controller
         $description = "<br/><br/>Candidature au poste de : $annonce_title <br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/>Motivation : $motivation <br/><br/>"."<br/><br/>CV : $cv";
 
         $emailAgile = 'daouda.dembele@agilestelecoms.com';
-        
+        */
         if($request->hasFile('cv'))
         {
            
-            //$myCv = $request->file('cv');
+            $cv = $request->file('cv');
             $cvName = $cv->getClientOriginalName();
             $cvPath = $cv->move('postuler/cv', $cvName);
             //dd($cvPath);
@@ -81,7 +84,11 @@ class PostulerController extends Controller
 
             if($postulant->save())
             {
-                
+
+                Mail::to('daouda.dembele@agilestelecoms.com')
+                    ->cc('david.kouakou@agilestelecoms.com')
+                    ->Send(new MailPostuler($data)); 
+               /* 
                 Mail::send([], [], function ($message) use ($nom,$email,$description,$emailAgile, $cv, $request) {
 
                     $message->to($emailAgile)
@@ -98,7 +105,7 @@ class PostulerController extends Controller
                         );
                     }
                 });
-                
+                */
                 return response()->json([
                     'success' => 'true',
                     'postulant' => $postulant,

@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Annonce extends Model
+class Postuler extends Model
 {
     use HasFactory;
 
-    protected $table = "annonces";
+    protected $table = "postulers";
     protected $guarded = [''];
 
-
-    public function postulants()
+    public function annonce()
     {
-    	return $this->hasMany('App\Models\Postuler');
+        return $this->belongsTo('App\Models\Annonce');
     }
 }

@@ -94,7 +94,7 @@ class AnnonceController extends Controller
                 $annonce->description_annonce = $request->description_annonce;
                 $annonce->type_travail = $request->type_travail;
 
-                Mail::to('david.kouakou@agilestelecoms.com')
+                Mail::to('daouda.dembele@agilestelecoms.com')
                     ->cc('daouda.dembele@agilestelecoms.com')
                     ->Send(new MailAnnonce($data)); 
 
@@ -149,7 +149,7 @@ class AnnonceController extends Controller
                     "success" => true,
                     "message" => "Annonce publiée avec succès",
                     "annonces" => $annonce
-                ], 201);
+                ], 200);
             }
         }
 

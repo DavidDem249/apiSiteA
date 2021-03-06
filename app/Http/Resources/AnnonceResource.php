@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\PostulerResource;
 
 class AnnonceResource extends JsonResource
 {
@@ -36,6 +37,7 @@ class AnnonceResource extends JsonResource
             'description_annonce' => $this->description_annonce,
             'type_travail' => $this->type_travail,
             'status' => $this->status,
+            'postulants' => PostulerResource::collection($this->postulants),
             //'created_at' => $this->created_at,
             //'updated_at' => $this->updated_at,
             //'domain' => ResourceDomain::collection($this->domains),

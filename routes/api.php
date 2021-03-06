@@ -20,6 +20,7 @@ use App\Http\Controllers\RessourceController;
 use App\Http\Controllers\DownloadRessourceController;
 use App\Http\Controllers\CarriereController;
 use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\PostulerController;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -76,8 +77,10 @@ Route::get('annonces', [AnnonceController::class, 'index'])->name('show.annonce'
 Route::get('annonces/{annonce_id}', [AnnonceController::class, 'show']);
 Route::delete('annonces/{annonce_id}',[AnnonceController::class, 'destroy']);
 
+Route::post('postuler/{annonce}', [PostulerController::class, 'store']);
+
 Route::post('faire-annonce', [AnnonceController::class, 'store']);
-Route::post('recrutement',[CarriereController::class, 'store']);
+//Route::post('recrutement',[CarriereController::class, 'store']);
 
 //Route::post('/captcha/submit',[RecaptchaController::class, 'recaptcha'])->name('recaptcha');
 

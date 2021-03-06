@@ -34,7 +34,7 @@ class PostulerController extends Controller
             'prenom' => 'required',
             'email' => 'required|email|max:255',
             'phone' => 'required|min:8',
-            'cv' => 'nullable|mimes:doc,docx,pdf,txt',
+            'cv' => 'required|mimes:doc,docx,pdf,txt',
             'motivation' => 'nullable',
             //'annonce_id' => 'required',
             'annonce_title' => 'nullable',
@@ -52,12 +52,13 @@ class PostulerController extends Controller
         $phone = $request->phone;
         $email = $request->email;
         $cv = $request->cv;
+        //$cv = asset($cv);
         $motivation = $request->motivation;
         //dd($data);
-        $description = "<br/><br/>Candidature au poste de : $annonce_title <br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/> Motivation : $motivation <br/><br/> CV : $cv";
+        $description = "<br/><br/>Candidature au poste de : $annonce_title <br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/>Motivation : $motivation <br/><br/>"."<br/><br/>CV : $cv";
 
         $emailAgile = 'daouda.dembele@agilestelecoms.com';
-
+        // dd($description);
         //$file = $request->file('cv');
         //dd($data);
         if($request->hasFile('cv'))
@@ -66,7 +67,7 @@ class PostulerController extends Controller
             //dd($cv);
             $myCv = $request->file('cv');
             $cvName = $myCv->getClientOriginalName();
-            $cvPath = $myCv->move('recrutement/cv', $cvName);
+            $cvPath = $myCv->move('postuler/cv', $cvName);
             //dd($cvPath);
             $link_url_cv = asset($cvPath);
             //dd($link_url_cv);

@@ -78,7 +78,7 @@ class FormateurController extends Controller
             'email' => 'required|email|max:255',
             'lien_linkdin' => 'nullable',
             'domaine' => 'required',
-            'cv' => 'required',
+            'cv' => 'required|mimes:doc,docx,pdf,txt',
             //'g-recaptcha-response' => 'required|recaptcha'
         ]);
         

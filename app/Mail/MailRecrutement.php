@@ -30,7 +30,7 @@ class MailRecrutement extends Mailable
      */
     public function build()
     {
-        return $this->from("daouda.dembele@agilestelecoms.com")
+        return $this->from("david.kouakou@agilestelecoms.com")
                 ->subject('AGILES TELECOMS - DEMANDE DE POSTE')
                 ->view('emails.recrutement');
     }

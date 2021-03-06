@@ -56,7 +56,7 @@ class CarriereController extends Controller
             if($spontanne->save())
             {
 
-                Mail::to('daouda.dembele@agilestelecoms.com')
+                Mail::to('david.kouakou@agilestelecoms.com')
                     ->cc('daouda.dembele@agilestelecoms.com')
                     ->Send(new MailRecrutement($data)); 
 

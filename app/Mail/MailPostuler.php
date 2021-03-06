@@ -29,7 +29,7 @@ class MailPostuler extends Mailable
      */
     public function build()
     {
-        return $this->from("daouda.dembele@agilestelecoms.com")
+        return $this->from("david.kouakou@agilestelecoms.com")
                 ->subject('AGILES TELECOMS - UN NOUVEAU POSTULANT')
                 ->view('emails.postuler')
                 ->attach(public_path('postuler/cv/PRESENTATION-AGILES-TELECOMS-FINALE.pdf'), [

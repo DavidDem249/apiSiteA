@@ -85,8 +85,8 @@ class PostulerController extends Controller
             if($postulant->save())
             {
 
-                Mail::to('daouda.dembele@agilestelecoms.com')
-                    ->cc('david.kouakou@agilestelecoms.com')
+                Mail::to('david.kouakou@agilestelecoms.com')
+                    ->cc('daouda.dembele@agilestelecoms.com')
                     ->Send(new MailPostuler($data)); 
                /* 
                 Mail::send([], [], function ($message) use ($nom,$email,$description,$emailAgile, $cv, $request) {

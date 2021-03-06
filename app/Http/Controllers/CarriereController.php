@@ -48,8 +48,8 @@ class CarriereController extends Controller
         //$file = $request->file('cv');
         Mail::send([], [], function ($message) use ($nom,$email,$description,$emailAgile, $fichiers, $request) {
             $message->to($emailAgile)
-                ->from($email,$nom)
-                ->replyTo($email)
+                ->from($emailAgile,$nom)
+                ->replyTo($emailAgile)
                 ->subject("AGILES TELECOMS - RECRUTEMENT")
                 ->setBody("<html>$description</html>", 'text/html'); // for HTML rich messages
 

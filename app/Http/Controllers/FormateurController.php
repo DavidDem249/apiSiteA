@@ -39,6 +39,9 @@ class FormateurController extends Controller
             'email' => 'required|email|max:255',
             'lien_linkdin' => 'required',
             'domaine' => 'required',
+            'technologie' => 'required',
+            'titre_formation' => 'required',
+            'details_formation' => 'required',
             //'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
@@ -78,24 +81,33 @@ class FormateurController extends Controller
             'email' => 'required|email|max:255',
             'lien_linkdin' => 'nullable',
             'domaine' => 'required',
+            'technologie' => 'required',
+            'titre_formation' => 'required',
+            'details_formation' => 'required|mimes:doc,docx,pdf,txt',
             'cv' => 'required|mimes:doc,docx,pdf,txt',
             //'g-recaptcha-response' => 'required|recaptcha'
         ]);
         
         if($data)
         {
-            
             // 
             if($request->hasFile('cv')){
 
                 $cv = $data['cv'];
+                $detail = $data['details_formation'];
                 //$nameCv = $cv->getClientOriginalName();
                 $cvName = date('YmdHis') . "." . $cv->getClientOriginalExtension();
+                $detailName = date('YmdHis') . "." . $detail->getClientOriginalExtension();
+
                 $pathCv = $cv->move('agilesRessources/formateurCv', $cvName);
+                $pathDetail = $detail->move('agilesRessources/detailsFormation', $detailName);
+
                 $link_url_cv = asset($pathCv);
+                $link_url_detail = asset($pathDetail);
 
                 $data['cv'] = $link_url_cv;
-            
+                $data['details_formation'] = $link_url_detail;
+                
                 $formateur = new Formateur();
                 $formateur->nom = $data['nom'];
                 $formateur->prenom = $data['prenom'];
@@ -103,6 +115,9 @@ class FormateurController extends Controller
                 $formateur->email = $data['email'];
                 $formateur->lien_linkdin = $data['lien_linkdin'] ?? "";
                 $formateur->domaine = $data['domaine'];
+                $formateur->technologie = $data['technologie'];
+                $formateur->titre_formation = $data['titre_formation'];
+                $formateur->details_formation = $link_url_detail;
                 $formateur->cv = $link_url_cv;
                 $formateur->save();
 
@@ -114,7 +129,7 @@ class FormateurController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Votre demande a bien été effectuée avec succès',
-                ], 201);
+                ], 200);
 
 
             }else{

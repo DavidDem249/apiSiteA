@@ -64,6 +64,11 @@
                                             CURRICULUM VITAE : <embed src="{{ $data['cv'] }}" width=800 height=500 type='application/pdf'/></span>
                                         </p>
 
+                                        <p style="line-height: 24px">
+                                            <span style="color:rgb(115,48,55); font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">
+                                            DETAILS FORMATION : <embed src="{{ $data['details_formation'] }}" width=800 height=500 type='application/pdf'/></span>
+                                        </p>
+
                                     </td>
                                 </tr>
                             </table>

@@ -38,7 +38,7 @@ class AnnonceController extends Controller
             'phone' => 'required|min:7',
             'duration' => 'required',
             'marge_salaire' => 'nullable',
-            'description_profil' => 'required',
+            //'description_profil' => 'required',
             'description_dossier' => 'required',
             'image' => 'nullable|mimes:png,jpg,jpeg,gif,svg',
             'localisation' => 'nullable',
@@ -48,6 +48,10 @@ class AnnonceController extends Controller
             'marge_salarial' => 'nullable',
             'description_annonce' => 'required',
             'type_travail' => 'nullable', 
+            'diplome' => 'nullable',
+            'dure_experience' => 'nullable',
+            'comp_tech' => 'nullable',
+            'aptitude_pro' => 'nullable',
         ]);  
 
         //dd($validator);
@@ -61,6 +65,7 @@ class AnnonceController extends Controller
 
         $data = $request->all();
 
+        //dd($data);
 
         if(request('image'))
         {
@@ -83,7 +88,7 @@ class AnnonceController extends Controller
                 $annonce->phone = $request->phone;
                 $annonce->duration = $request->duration;
                 $annonce->marge_salaire = $request->marge_salaire;
-                $annonce->description_profil = $request->description_profil;
+                //$annonce->description_profil = $request->description_profil;
                 $annonce->description_dossier = $request->description_dossier;
                 $annonce->image = $link_url_image;
                 $annonce->localisation = $request->localisation;
@@ -93,6 +98,10 @@ class AnnonceController extends Controller
                 $annonce->marge_salarial = $request->marge_salarial;
                 $annonce->description_annonce = $request->description_annonce;
                 $annonce->type_travail = $request->type_travail;
+                $annonce->diplome = $request->diplome;
+                $annonce->dure_experience = $request->dure_experience;
+                $annonce->comp_tech = $request->comp_tech;
+                $annonce->aptitude_pro = $request->aptitude_pro;
 
                 Mail::to('david.kouakou@agilestelecoms.com')
                     ->cc('daouda.dembele@agilestelecoms.com')
@@ -125,7 +134,7 @@ class AnnonceController extends Controller
             $annonce->phone = $request->phone;
             $annonce->duration = $request->duration;
             $annonce->marge_salaire = $request->marge_salaire;
-            $annonce->description_profil = $request->description_profil;
+            //$annonce->description_profil = $request->description_profil;
             $annonce->description_dossier = $request->description_dossier;
             $annonce->localisation = $request->localisation;
             $annonce->email = $request->email;
@@ -134,6 +143,10 @@ class AnnonceController extends Controller
             $annonce->marge_salarial = $request->marge_salarial;
             $annonce->description_annonce = $request->description_annonce;
             $annonce->type_travail = $request->type_travail;
+            $annonce->diplome = $request->diplome;
+            $annonce->dure_experience = $request->dure_experience;
+            $annonce->comp_tech = $request->comp_tech;
+            $annonce->aptitude_pro = $request->aptitude_pro;
 
             Mail::to('david.kouakou@agilestelecoms.com')
                 ->cc('daouda.dembele@agilestelecoms.com')

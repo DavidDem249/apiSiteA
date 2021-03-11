@@ -72,7 +72,7 @@ Route::post('uploadfile', [RessourceController::class, 'store']);
 Route::get('agileressource', [RessourceController::class, 'index']);
 Route::get('agileressource/{resource}', [RessourceController::class, 'show']);
 
-Route::post('download-resource/{resource_id}', [DownloadRessourceController::class,'store']);
+Route::post('download-resource/{resource_id}',[DownloadRessourceController::class,'store']);
 Route::get('annonces', [AnnonceController::class, 'index'])->name('show.annonce');
 Route::get('annonces/{annonce_id}', [AnnonceController::class, 'show']);
 Route::delete('annonces/{annonce_id}',[AnnonceController::class, 'destroy']);

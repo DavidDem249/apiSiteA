@@ -4,3 +4,15 @@
 composer install --------> Pour installer toutes les dépendances
 
 php artisan migrate    ------> Pour la migration de la base de données 
+
+php artisan migrate:fresh  -----> Pour supprimer et ré-créer toutes les tables ( Les anciennes données seront supprimer )
+
+cp cp .env.example .env    -----------> 	Pour avoir le fichier .env
+
+php artisan generate:key   ------------->  pour générer une nouvelle clé
+
+
+DB_DATABASE=nom_base_de_donnee
+DB_USERNAME=name_user_db
+DB_PASSWORD=password_user
+

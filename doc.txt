@@ -1,0 +1,6 @@
+====================      DOCUMENT DE DEPLOIEMENT    =====================
+
+
+composer install --------> Pour installer toutes les dépendances
+
+php artisan migrate    ------> Pour la migration de la base de données 

@@ -86,17 +86,14 @@ Route::post('recrutement',[CarriereController::class, 'store']);
 
 //Route::post('/captcha/submit',[RecaptchaController::class, 'recaptcha'])->name('recaptcha');
 
-Route::group([
+Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
 
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
 	Route::post('register', [AuthController::class, 'register'])->name('store.register');
-    Route::get('login', [AuthController::class, 'login'])->name('store.login');
+    Route::post('login', [AuthController::class, 'login'])->name('store.login');
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('me', [AuthController::class, 'me'])->name('me');
+    
 }); 
 
 

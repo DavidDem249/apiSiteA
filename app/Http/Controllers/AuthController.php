@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+
 
 class AuthController extends Controller
 {
@@ -24,15 +27,38 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function register(request $request)
+    public function register(Request $request)
     {
+        /*
     	User::create($request->all());
 
     	return response()->json([
                 'success' => 'Inscription éffectuée',
         	], 200);
-    }
+        */
 
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+   
+        if($validator->fails()){
+            return response()->json(['Validation error'=>$validator->errors()], 401)
+            //return $this->sendError('Validation Error.', $validator->errors());       
+        }
+   
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        $success['token'] =  $user->createToken('agilesTelecoms')->accessToken;
+        $success['name'] =  $user->name;
+   
+        return $this->sendResponse($success, 'User register successfully.');
+
+    }
+    /*
     public function login()
     {
 
@@ -65,6 +91,22 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+    } */
+
+
+    public function login(Request $request)
+    {
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+            $user = Auth::user(); 
+            $success['token'] =  $user->createToken('agilesTelecoms')->accessToken; 
+            $success['name'] =  $user->name;
+            return response()->json(['success'=> "User login successfully."], 200);
+            //return $this->sendResponse($success, 'User login successfully.');
+        } 
+        else{ 
+            return response()->json(['error'=> "Unauthorised"], 404);
+            //return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+        } 
     }
 
     /**

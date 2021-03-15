@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
+//use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -49,19 +50,22 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return mixed
      */
+    /*
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
-
+    */
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
      * @return array
      */
+    /*
     public function getJWTCustomClaims()
     {
         return [];
     }
+    */
     
 }

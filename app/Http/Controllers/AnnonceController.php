@@ -60,7 +60,7 @@ class AnnonceController extends Controller
             'description_dossier' => 'nullable',
             'image' => 'nullable|mimes:png,jpg,jpeg,gif,svg',
             'localisation' => 'nullable',
-            'email' => 'required|email|max:255',
+            'email' => 'nullable|email|max:255',
             'date' => 'nullable',
             'contrat_type' => 'nullable',
             'marge_salarial' => 'nullable',

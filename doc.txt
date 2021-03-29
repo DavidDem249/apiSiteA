@@ -1,18 +1,19 @@
 ====================      DOCUMENT DE DEPLOIEMENT    =====================
 
 
-composer install --------> Pour installer toutes les dépendances
+composer install ----------> Aucun package installé donc pas nécessaire 
 
-php artisan migrate    ------> Pour la migration de la base de données 
+php artisan migrate    ------> Colonnes déjà crées dans la base de données du serveur  
 
 php artisan migrate:fresh  -----> Pour supprimer et ré-créer toutes les tables ( Les anciennes données seront supprimer )
 
-cp cp .env.example .env    -----------> 	Pour avoir le fichier .env
+cp cp .env.example .env    -----------> 	Pour générer le fichier .env
 
-php artisan generate:key   ------------->  pour générer une nouvelle clé
+php artisan generate:key   ------------->  pour générer une nouvelle clé de l'application
 
 
 DB_DATABASE=nom_base_de_donnee
 DB_USERNAME=name_user_db
 DB_PASSWORD=password_user
+
 

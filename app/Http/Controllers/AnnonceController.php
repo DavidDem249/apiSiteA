@@ -23,7 +23,7 @@ class AnnonceController extends Controller
     {
 
         $data = request()->validate([
-            'search' => 'nullable|min:3',
+            'search' => 'nullable',
         ]);
         //dd($data['search']);
         if($data && !is_null($data['search']))
@@ -31,8 +31,9 @@ class AnnonceController extends Controller
             $text = request()->input('search');
 
             $annonces = Annonce::where('category', 'like', "%$text%")
-                        ->orderBy('created_at', 'DESC')
-                        ->where('title', 'like', "%$text%")->get();
+                        ->orwhere('title', 'like', "%$text%")
+                        ->orderBy('created_at', 'DESC')->get();
+            //dd($annonces);
         }else{
 
             $annonces = Annonce::orderby('created_at', 'DESC')->where('status',1)->get();

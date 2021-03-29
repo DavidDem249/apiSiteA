@@ -14,7 +14,7 @@
 
                             <div style="line-height: 35px">
 
-                                OBJET :  DEMANDE POUR ÊTRE FORMATEUR
+                                DEMANDE POUR ÊTRE FORMATEUR
 
                             </div>
                         </td>

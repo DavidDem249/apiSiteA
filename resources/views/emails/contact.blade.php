@@ -14,7 +14,7 @@
 
                             <div style="line-height: 35px">
 
-                                OBJET :  {{ $data['object'] }}
+                                {{ $data['object'] }}
 
                             </div>
                         </td>

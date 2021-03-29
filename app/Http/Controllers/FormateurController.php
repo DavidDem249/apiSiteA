@@ -29,6 +29,8 @@ class FormateurController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    /*
     public function store(Request $request)
     {
         //dd($request->all());
@@ -45,32 +47,32 @@ class FormateurController extends Controller
             //'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
-        // $secret = \config('captcha.v2-checkbox');
+        $secret = \config('captcha.v2-checkbox');
 
-        // $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify',[
-        //       'secret' => $secret,
-        //       'response' => $request['g-recaptcha-response'],
-        // ]);
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify',[
+                'secret' => $secret,
+                'response' => $request['g-recaptcha-response'],
+            ]);
 
-        // session()->put([
-        //     'payload' => $response->body(),
-        // ]);
+        session()->put([
+            'payload' => $response->body(),
+        ]);
 
         if($validate)
         {
-            // if($response->success)
-            // {
-            Formateur::create($request->all());
-            Mail::to('daouda.dembele@agilestelecoms.com')->Send(new Message($data));
+            if($response->success)
+            {
+                Formateur::create($request->all());
+                Mail::to('daouda.dembele@agilestelecoms.com')->Send(new Message($data));
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Votre demande a bien été effectuée avec succès',
-            ], 200);
-            // }
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Votre demande a bien été effectuée avec succès',
+                ], 200);
+            }
         }
     }
-
+    */
     public function candidater(Request $request)
     {
         //dd($request->all());
@@ -81,11 +83,10 @@ class FormateurController extends Controller
             'email' => 'required|email|max:255',
             'lien_linkdin' => 'nullable',
             'domaine' => 'required',
-            'technologie' => 'required',
+            //'technologie' => 'required',
             'titre_formation' => 'required',
             'details_formation' => 'required|mimes:doc,docx,pdf,txt',
             'cv' => 'required|mimes:doc,docx,pdf,txt',
-            //'g-recaptcha-response' => 'required|recaptcha'
         ]);
         
         if($data)
@@ -94,6 +95,7 @@ class FormateurController extends Controller
             if($request->hasFile('cv')){
 
                 $cv = $data['cv'];
+
                 $detail = $data['details_formation'];
                 //$nameCv = $cv->getClientOriginalName();
                 $cvName = date('YmdHis') . "." . $cv->getClientOriginalExtension();

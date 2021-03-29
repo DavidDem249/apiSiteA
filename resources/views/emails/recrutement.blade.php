@@ -13,8 +13,7 @@
                             <!-- section text ======-->
 
                             <div style="line-height: 35px">
-
-                                OBJET :  DEMANDE DE POSTE 
+                                CANDIDATURE SPONTANEE
                             </div>
                         </td>
                     </tr>
@@ -41,20 +40,40 @@
                         <td align="left">
                             <table border="0" width="590" align="center" cellpadding="0" cellspacing="0" class="container590">
                                 <tr>
-                                    <td align="left" style="color: #888888; font-size: 16px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 24px;">
-                                        <!-- section text ======-->
+                                    <td align="left">
+                                        <table border="0" width="590" align="center" cellpadding="0" cellspacing="0" class="container590">
+                                            <tr>
+                                                <td align="left" style="color: #888888; font-size: 16px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 24px;">
+                                                    <!-- section text ======-->
 
-                                        <h4 style="margin-bottom: 5px">
-                                            CANDIDAT : {{ $data['nom'] }} {{ $data['prenom'] }} <br/>
-                                        </h4>
-                                        
-                                        <h5 style="margin-top: 5px;margin-bottom: 5px;">AUTRE INFORMATION DU CANDIDAT</h5>
-                                        <p style="line-height: 24px;margin-bottom:15px;">
-                                           EMAIL & PHONE: {{ $data['email']}} {{ $data['phone'] }}
-                                        </p>
-                                        
+                                                    <p style="margin-bottom: 5px">
+                                                        NOM: {{ $data['nom'] }}
+                                                    </p>
+
+                                                    <p style="margin-bottom: 5px">
+                                                        PRENOM: {{ $data['prenom'] }}
+                                                    </p>
+                                                    
+                                                    <!-- <h5 style="margin-top: 5px;margin-bottom: 5px;">AUTRE INFORMATION DU CANDIDAT</h5> -->
+                                                    <p style="line-height: 24px;margin-bottom:10px;">
+                                                       EMAIL: {{ $data['email']}}
+                                                    </p>
+
+                                                    <p style="line-height: 24px;margin-bottom:10px;">
+                                                       PHONE: {{ $data['phone'] }}
+                                                    </p>
+
+
+                                                    <p style="line-height: 24px;margin-bottom:20px;">
+                                                       <a href="{{ $data['fichiers']}}">Voir le cv du postulant</a> 
+                                                    </p>
+                                                    
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
+
                             </table>
                         </td>
                     </tr>

@@ -1,7 +1,7 @@
 @extends('emails.base')
          
 @section('content')
-	<table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff" class="bg_color">
+    <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff" class="bg_color">
 
         <tr>
             <td align="center">
@@ -49,13 +49,17 @@
                                             {{ $data['name'] }} {{ $data['firstname'] }},
                                         </p>
                                         <p style="line-height: 24px;margin-bottom:15px;">
-                                            à télécharger une ressource d'Agiles Télécoms
+                                            a téléchargé une ressource d'Agiles Télécoms
                                         </p>
                                        
                                        
                                         <p style="line-height: 24px">
-                                            <span style="color:rgb(115,48,55); font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">Profession : {{ $data['profession'] }},</br>
-                                            Adresse Email : {{ $data['email'] }}</span>
+                                            <span style="color:rgb(115,48,55); font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">Profession : {{ $data['profession'] }}
+                                            </span>
+                                        </p>
+
+                                        <p style="line-height: 24px">
+                                            <span style="color:rgb(115,48,55); font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">Adresse Email : {{ $data['email'] }}</span>
                                         </p>
 
                                     </td>

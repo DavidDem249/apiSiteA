@@ -14,7 +14,7 @@
 
                             <div style="line-height: 35px">
 
-                                OBJET :  UNE NOUVELLE ANNONCE PUBLIEE
+                                UNE NOUVELLE ANNONCE PUBLIEE
 
                             </div>
                         </td>
@@ -54,7 +54,7 @@
 
                                         <h5 style="margin-top: 5px;margin-bottom: 5px;">DETAILS DE L'ANNONCE</h5>
                                         <p style="line-height: 24px;margin-bottom:15px;">
-                                            {{ $data['description_annonce'] }}
+                                            {!! \Illuminate\Support\Str::limit($data['description_annonce'], 40, $end='...') !!}
                                         </p>
                                         
                                     </td>

@@ -66,6 +66,12 @@ class DownloadRessourceController extends Controller
                 ->cc('daouda.dembele@agilestelecoms.com')
                 ->Send(new SendMailSuccess($data)); 
 
+            //Send Mail Online
+            /*Mail::to('rh@agilestelecoms.com')
+                ->cc('daouda.dembele@agilestelecoms.com')
+                ->bcc('regis.gnonrou@agilestelecoms.com')
+                ->Send(new SendMailSuccess($data)); */
+
             //Réponse 
         
             return response()->json([

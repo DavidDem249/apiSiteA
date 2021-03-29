@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Annonce;
 
 use App\Mail\MailPostuler;
+use App\Mail\ResponseMailPostuler;
 
 class PostulerController extends Controller
 {
@@ -45,75 +46,72 @@ class PostulerController extends Controller
         $annonce_title = $annonce->title;
 
         $data['annonce_title'] = $annonce_title;
-        //dd($data);
-        /*
-        $nom = $request->nom;
-        $prenom = $request->prenom;
-        $phone = $request->phone;
-        $email = $request->email;
-        //$cv = $request->cv;
-        $cv = $request->file('cv');
-        //$cv = asset($cv);
-        $motivation = $request->motivation;
-        //dd($data);
-        $description = "<br/><br/>Candidature au poste de : $annonce_title <br/><br/> Numéro : $phone"."<br/><br/> Candidat : $nom $prenom"."<br/><br/> Adresse email : $email"."<br/><br/>Motivation : $motivation <br/><br/>"."<br/><br/>CV : $cv";
-
-        $emailAgile = 'daouda.dembele@agilestelecoms.com';
-        */
+       
+        
         if($request->hasFile('cv'))
         {
+            //basename 
+            $cv = $data['cv'];
+
+            //====== NEW =========
+            $size = filesize($cv);
+
+            if($size<2300000)
+            {
+                //dd($cv);
+                $time = time();
+
+                //$cvName = $cv->getClientOriginalName();
+                //$cvExtension = $cv->getClientOriginalExtension();
+                $cvName = date('YmdHis') . "." . $cv->getClientOriginalExtension();
+                //dd($cvExtension);
+                $cvPath = $cv->move('recrutement/cv', $cvName);
+                //dd($cvPath);
+                $link_url_cv = asset($cvPath);
+                //dd($link_url_cv);
+
+                $data['cv'] = $link_url_cv;
+                //dd($data);
+
+                $postulant = new Postuler();
+                $postulant->nom = $data['nom'];
+                $postulant->prenom = $data['prenom'];
+                $postulant->email = $data['email'];
+                $postulant->phone = $data['phone'];
+
+                $postulant->cv = $link_url_cv;
+                //$postulant->motivation = $data['motivation'];
+                $postulant->annonce_id = $annonce->id;
+
+                $postulant->save();
+
+            }else{
+                //dd($l);
+                return response()->json([
+                    'code' =>0,
+                    'file' => "Votre fichier ne doit pas dépasser 2.2 MO",
+                ], 401);
+            }
+
+            //==============END==========
            
-            $cv = $request->file('cv');
-            $time = time();
-
-            //$cvName = $cv->getClientOriginalName();
-            //$cvExtension = $cv->getClientOriginalExtension();
-            $cvName = date('YmdHis') . "." . $cv->getClientOriginalExtension();
-            //dd($cvExtension);
-            $cvPath = $cv->move('recrutement/cv', $cvName);
-            //dd($cvPath);
-            $link_url_cv = asset($cvPath);
-            //dd($link_url_cv);
-
-            $data['cv'] = $link_url_cv;
-            //dd($data);
-
-            $postulant = new Postuler();
-            $postulant->nom = $data['nom'];
-            $postulant->prenom = $data['prenom'];
-            $postulant->email = $data['email'];
-            $postulant->phone = $data['phone'];
-
-            $postulant->cv = $link_url_cv;
-            $postulant->motivation = $data['motivation'];
-            $postulant->annonce_id = $annonce->id;
-
-            $postulant->save();
 
             if($postulant->save())
             {
-
+                /*
                 Mail::to('david.kouakou@agilestelecoms.com')
                     ->cc('daouda.dembele@agilestelecoms.com')
+                    ->Send(new MailPostuler($data)); */
+                //Mail::to($data['email'])->send(new ResponseMailPostuler($data));
+                //Send Mail Online
+                
+                Mail::to('rh@agilestelecoms.com')
+                    ->cc('daouda.dembele@agilestelecoms.com')
+                    ->bcc('david.kouakou@agilestelecoms.com')
                     ->Send(new MailPostuler($data)); 
-               /* 
-                Mail::send([], [], function ($message) use ($nom,$email,$description,$emailAgile, $cv, $request) {
 
-                    $message->to($emailAgile)
-                        ->from($email,$nom)
-                        ->replyTo($email)
-                        ->subject("AGILES TELECOMS - RECRUTEMENT")
-                        ->setBody("<html>$description</html>", 'text/html'); // for HTML rich messages
-
-                    if($request->hasFile('cv')){
-                        
-                        $message->attach($cv->getRealPath(), array(
-                            'as' => $cv->getClientOriginalName(), // If you want you can chnage original name to custom name      
-                            'mime' => $cv->getMimeType())
-                        );
-                    }
-                });
-                */
+                Mail::to($data['email'])->send(new ResponseMailPostuler($data));
+                
                 return response()->json([
                     'success' => 'true',
                     'postulant' => $postulant,

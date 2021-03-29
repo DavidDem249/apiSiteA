@@ -41,7 +41,11 @@ class AnnonceResource extends JsonResource
             'dure_experience' => $this->dure_experience,
             'comp_tech' => $this->comp_tech,
             'aptitude_pro' => $this->aptitude_pro,
+            'category' => $this->category,
+            'place' => $this->place,
+            'date_post' => $this->created_at->format('d-m-Y'),
             'postulants' => PostulerResource::collection($this->postulants),
+
             //'created_at' => $this->created_at,
             //'updated_at' => $this->updated_at,
             //'domain' => ResourceDomain::collection($this->domains),

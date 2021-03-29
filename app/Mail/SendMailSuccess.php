@@ -31,6 +31,6 @@ class SendMailSuccess extends Mailable
     public function build()
     {
         return $this->from("david.kouakou@agilestelecoms.com")
-                ->subject('AGILES TELECOMS - Téléchargement Réssource')->markdown('emails.sendMailSuccess');
+                ->subject('AT - Téléchargement Réssource')->markdown('emails.sendMailSuccess');
     }
 }

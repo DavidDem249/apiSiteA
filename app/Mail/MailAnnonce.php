@@ -36,7 +36,7 @@ class MailAnnonce extends Mailable
     public function build()
     {
         return $this->from("david.kouakou@agilestelecoms.com")
-                ->subject('AGILES TELECOMS - PUBLICATION')
+                ->subject('AT - PUBLICATION DE L\'OFFRE : '.$this->data['title'])
                 ->view('emails.annonce_mail');
     }
 }

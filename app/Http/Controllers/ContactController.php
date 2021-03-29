@@ -28,10 +28,18 @@ class ContactController extends Controller
           'phone' => 'required|min:8',
           'message' => 'required',
       ]);
+      /*
       Mail::to('david.kouakou@agilestelecoms.com')
           ->cc('daouda.dembele@agilestelecoms.com')
           //->bcc('regis.gnonrou@agilestelecoms.com')
-          ->Send(new ContactMail($data));
+          ->Send(new ContactMail($data));*/
+
+      //Send Mail Online 
+      Mail::to('rh@agilestelecoms.com')
+          ->cc('daouda.dembele@agilestelecoms.com')
+          ->bcc('regis.gnonrou@agilestelecoms.com')
+          ->Send(new ContactMail($data)); 
+
       Contact::create($request->all());
       return response()->json([
           'success' => true,

@@ -39,7 +39,7 @@ class CarriereController extends Controller
 
         if($request->hasFile('fichiers')){
             
-            $cv = $request->file('fichiers');
+            $cv = $data['fichiers'];
             //$name = $cv->getClientOriginalName();
             $cvName = date('YmdHis') . "." . $cv->getClientOriginalExtension();
             $CvPath = $cv->move('recrutement/cv', $cvName);
@@ -57,9 +57,16 @@ class CarriereController extends Controller
             if($spontanne->save())
             {
 
-                Mail::to('david.kouakou@agilestelecoms.com')
+                //Send Mail One Local
+                /*Mail::to('david.kouakou@agilestelecoms.com')
                     ->cc('daouda.dembele@agilestelecoms.com')
                     ->Send(new MailRecrutement($data)); 
+                */
+                //Send Mail Online
+                Mail::to('rh@agilestelecoms.com')
+                    ->cc('daouda.dembele@agilestelecoms.com')
+                    ->bcc('david.kouakou@agilestelecoms.com')
+                    ->Send(new MailRecrutement($data));
 
                 return response()->json([
                     'success' => 'true',

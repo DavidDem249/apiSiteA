@@ -26,7 +26,7 @@ class AddDescriptionToRessourcesTable extends Migration
     public function down()
     {
         Schema::table('ressources', function (Blueprint $table) {
-            $table->dropColumn('store_id');
+            $table->dropColumn('description');
         });
     }
 }

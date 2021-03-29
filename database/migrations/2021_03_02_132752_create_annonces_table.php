@@ -15,18 +15,18 @@ class CreateAnnoncesTable extends Migration
     {
         Schema::create('annonces', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('entreprise');
-            $table->string('phone');
+            $table->string('title')->nullable();
+            $table->string('entreprise')->nullable();
+            $table->string('phone')->nullable();
             $table->string('duration')->nullable();
             $table->string('marge_salaire')->nullable();
             //$table->text('description_profil');
             $table->text('description_dossier')->nullable();
             $table->string('image')->nullable();
-            $table->string('localisation');
-            $table->string('email');
-            $table->string('date');
-            $table->string('contrat_type');
+            $table->string('localisation')->nullable();
+            $table->string('email')->nullable();
+            $table->string('date')->nullable();
+            $table->string('contrat_type')->nullable();
             $table->string('marge_salarial')->nullable();
             $table->text('description_annonce')->nullable();
             $table->string('type_travail')->nullable();

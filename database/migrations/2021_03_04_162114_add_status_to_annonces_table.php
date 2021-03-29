@@ -14,7 +14,7 @@ class AddStatusToAnnoncesTable extends Migration
     public function up()
     {
         Schema::table('annonces', function (Blueprint $table) {
-            $table->boolean('status')->default(false)->after('type_travail');
+            $table->boolean('status')->default(true)->after('type_travail');
         });
     }
 

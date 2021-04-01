@@ -1,19 +1,24 @@
 ====================      DOCUMENT DE DEPLOIEMENT    =====================
 
 
-composer install ----------> Aucun package installé donc pas nécessaire 
+composer install ------> Aucun package installé donc pas nécessaire 
 
-php artisan migrate    ------> Colonnes déjà crées dans la base de données du serveur  
+php artisan migrate ------> Colonnes déjà crées dans la base de données du serveur  
 
 php artisan migrate:fresh  -----> Pour supprimer et ré-créer toutes les tables ( Les anciennes données seront supprimer )
 
-cp cp .env.example .env    -----------> 	Pour générer le fichier .env
+cp cp .env.example .env -------> Pour générer le fichier .env s'il n'existe pas dans l'application
 
-php artisan generate:key   ------------->  pour générer une nouvelle clé de l'application
+php artisan generate:key --------->  pour générer une nouvelle clé de l'application
 
+
+php artisan passport:install    ------> Pour générer les clé de l'api passport
+php artisan passeport: install --force -----> Force la génération de la clé
 
 DB_DATABASE=nom_base_de_donnee
 DB_USERNAME=name_user_db
 DB_PASSWORD=password_user
+
+
 
 

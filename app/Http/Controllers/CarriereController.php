@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Carriere;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailRecrutement;
+use App\Http\Resources\CarriereResource;
 
 class CarriereController extends Controller
 {
@@ -17,7 +18,8 @@ class CarriereController extends Controller
      */
     public function index()
     {
-        //
+        $candidats_spontanne = Carriere::orderby('created_at', 'DESC')->get();
+        return CarriereResource::collection($candidats_spontanne);
     }
 
     /**

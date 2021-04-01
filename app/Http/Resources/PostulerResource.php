@@ -22,6 +22,8 @@ class PostulerResource extends JsonResource
             'prenom' => $this->prenom,
             'email' => $this->email,
             'phone' => $this->phone,
+            'cv' => $this->cv,
+            'annonce' => $this->annonce->title,
             //'offre' => $this->duration,
         ];
     }

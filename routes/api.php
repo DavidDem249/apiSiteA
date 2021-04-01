@@ -78,6 +78,9 @@ Route::get('annonces/{annonce_id}', [AnnonceController::class, 'show']);
 Route::delete('annonces/{annonce_id}',[AnnonceController::class, 'destroy']);
 
 Route::post('postuler/{annonce}', [PostulerController::class, 'store']);
+Route::get('postuler', [PostulerController::class, 'index']);
+
+Route::get('/candidature-spontannee', [CarriereController::class, 'index']);
 
 Route::post('faire-annonce', [AnnonceController::class, 'store']);
 Route::put('annonce/update/{annonce_id}',[AnnonceController::class, 'update']);

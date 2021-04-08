@@ -55,7 +55,8 @@ class AuthController extends Controller
         $success['token'] =  $user->createToken('agilesTelecoms')->accessToken;
         $success['name'] =  $user->name;
    
-        return $this->sendResponse($success, 'User register successfully.');
+        //return $this->sendResponse($success, 'User register successfully.');
+        return response()->json(['success'=> "User register successfully."], 200);
 
     }
     /*

@@ -9,8 +9,6 @@ use App\Mail\MailAnnonce;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\AnnonceResource;
 
-Use Carbon\Carbon;
-
 class AnnonceController extends Controller
 {
 
@@ -21,23 +19,7 @@ class AnnonceController extends Controller
      */
     public function index()
     {
-
-        $data = request()->validate([
-            'search' => 'nullable',
-        ]);
-        //dd($data['search']);
-        if($data && !is_null($data['search']))
-        {
-            $text = request()->input('search');
-
-            $annonces = Annonce::where('category', 'like', "%$text%")
-                        ->orwhere('title', 'like', "%$text%")
-                        ->orderBy('created_at', 'DESC')->get();
-            //dd($annonces);
-        }else{
-
-            $annonces = Annonce::orderby('created_at', 'DESC')->where('status',1)->get();
-        }
+        $annonces = Annonce::orderby('created_at', 'DESC')->where('status',1)->get();
         return AnnonceResource::collection($annonces);
     }
 
@@ -49,7 +31,6 @@ class AnnonceController extends Controller
      */
     public function store(Request $request)
     {
-
 
         $validator = Validator::make($request->all(),[ 
             'title' => 'nullable|min:2',
@@ -71,8 +52,6 @@ class AnnonceController extends Controller
             'dure_experience' => 'nullable',
             'comp_tech' => 'nullable',
             'aptitude_pro' => 'nullable',
-            'category' => 'nullable',
-            'place' => 'nullable',
         ]);  
 
         //dd($validator);
@@ -87,9 +66,6 @@ class AnnonceController extends Controller
         $data = $request->all();
 
         //dd($data);
-
-        $now = Carbon::now();
-        $date_now = $now->format('d-m-Y');
 
         if(request('image'))
         {
@@ -117,7 +93,7 @@ class AnnonceController extends Controller
                 $annonce->image = $link_url_image;
                 $annonce->localisation = $request->localisation;
                 $annonce->email = $request->email;
-                $annonce->date = $date_now;
+                $annonce->date = $request->date;
                 $annonce->contrat_type = $request->contrat_type;
                 $annonce->marge_salarial = $request->marge_salarial;
                 $annonce->description_annonce = $request->description_annonce;
@@ -126,32 +102,25 @@ class AnnonceController extends Controller
                 $annonce->dure_experience = $request->dure_experience;
                 $annonce->comp_tech = $request->comp_tech;
                 $annonce->aptitude_pro = $request->aptitude_pro;
-                $annonce->category = $request->category;
-                $annonce->place = $request->place;
-                $annonce->save();
-
-                /*
-                Mail::to('david.kouakou@agilestelecoms.com')
-                    ->cc('daouda.dembele@agilestelecoms.com')
-                    ->Send(new MailAnnonce($data));
-                */
-                //Send Mail Online
+        
+        $annonce->save();
                 Mail::to('rh@agilestelecoms.com')
                     ->cc('daouda.dembele@agilestelecoms.com')
-                    ->bcc('david.kouakou@agilestelecoms.com')   
-                    ->Send(new MailAnnonce($data));  
+            ->bcc('david.kouakou@agilestelecoms.com')   
+                    ->Send(new MailAnnonce($data)); 
 
-                return response()->json([
-                    "success" => true,
-                    "message" => "Annonce publiée avec succès",
-                    "annonces" => $annonce
-                ], 200);
-
-                /*if($annonce->save())
+                
+                
+                if($annonce->save())
                 {
-                    
-                }*/
+                    //dd($annonce);
 
+                    return response()->json([
+                        "success" => true,
+                        "message" => "Annonce publiée avec succès",
+                        "annonces" => $annonce
+                    ], 200);
+                }
             }else{
                 return response()->json([
                     "success" => false,
@@ -160,8 +129,6 @@ class AnnonceController extends Controller
             }
         }else{
 
-            // $now = Carbon::now();
-            // $date_now = $now->format('d-m-Y');
 
             $annonce = new Annonce();
             $annonce->title = $request->title;
@@ -173,7 +140,7 @@ class AnnonceController extends Controller
             $annonce->description_dossier = $request->description_dossier;
             $annonce->localisation = $request->localisation;
             $annonce->email = $request->email;
-            $annonce->date = $date_now;
+            $annonce->date = $request->date;
             $annonce->contrat_type = $request->contrat_type;
             $annonce->marge_salarial = $request->marge_salarial;
             $annonce->description_annonce = $request->description_annonce;
@@ -182,32 +149,24 @@ class AnnonceController extends Controller
             $annonce->dure_experience = $request->dure_experience;
             $annonce->comp_tech = $request->comp_tech;
             $annonce->aptitude_pro = $request->aptitude_pro;
-            $annonce->category = $request->category;
-            $annonce->place = $request->place;
-            $annonce->save();
 
-            /* 
-            Mail::to('daouda.dembele@agilestelecoms.com')
-                ->cc('david.kouakou@agilestelecoms.com')
-                ->Send(new MailAnnonce($data));
-            */
-            //Send Mail Online
-             
             Mail::to('rh@agilestelecoms.com')
                 ->cc('daouda.dembele@agilestelecoms.com')
-                ->bcc('david.kouakou@agilestelecoms.com')
-                ->Send(new MailAnnonce($data));  
+        ->bcc('david.kouakou@agilestelecoms.com')   
+                ->Send(new MailAnnonce($data)); 
 
-            return response()->json([
-                "success" => true,
-                "message" => "Annonce publiée avec succès",
-                "annonces" => $annonce
-            ], 200);
+            $annonce->save();
             
-            /*if($annonce->save())
+            if($annonce->save())
             {
-                
-            }*/
+                //dd($annonce);
+
+                return response()->json([
+                    "success" => true,
+                    "message" => "Annonce publiée avec succès",
+                    "annonces" => $annonce
+                ], 200);
+            }
         }
 
     }
@@ -216,8 +175,8 @@ class AnnonceController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response */
-     
+     * @return \Illuminate\Http\Response
+     */
     public function show(Annonce $annonce_id)
     {
         //$annonce_id = Annonce::find($annonce_id);
@@ -235,27 +194,25 @@ class AnnonceController extends Controller
     public function update(Request $request, Annonce $annonce_id)
     {
         $validator = Validator::make($request->all(),[ 
-            'title' => 'nullable|min:2',
-            'entreprise' => 'nullable|min:3',
-            'phone' => 'nullable|min:7',
-            'duration' => 'nullable',
+            'title' => 'required|min:2',
+            'entreprise' => 'required|min:3',
+            'phone' => 'required|min:7',
+            'duration' => 'required',
             'marge_salaire' => 'nullable',
             //'description_profil' => 'required',
-            'description_dossier' => 'nullable',
+            'description_dossier' => 'required',
             'image' => 'nullable|mimes:png,jpg,jpeg,gif,svg',
             'localisation' => 'nullable',
-            'email' => 'nullable|email|max:255',
-            'date' => 'nullable',
-            'contrat_type' => 'nullable',
+            'email' => 'required|email|max:255',
+            'date' => 'required',
+            'contrat_type' => 'required',
             'marge_salarial' => 'nullable',
-            'description_annonce' => 'nullable',
+            'description_annonce' => 'required',
             'type_travail' => 'nullable', 
             'diplome' => 'nullable',
             'dure_experience' => 'nullable',
             'comp_tech' => 'nullable',
             'aptitude_pro' => 'nullable',
-            'category' => 'nullable',
-            'place' => 'nullable',
         ]);  
         
         $id_annonce = $annonce_id->id;
@@ -302,8 +259,6 @@ class AnnonceController extends Controller
                     "dure_experience" => $request->dure_experience,
                     "comp_tech" => $request->comp_tech,
                     "aptitude_pro" => $request->aptitude_pro,
-                    "category" => $request->category,
-                    "place" => $request->place,
                 ]);
                 /*
                 Mail::to('david.kouakou@agilestelecoms.com')
@@ -325,7 +280,7 @@ class AnnonceController extends Controller
             }
         }else{
 
-            $annonce = Annonce::whereId($id_annonce)->update([
+            Annonce::whereId($id_annonce)->update([
                 "title" => $request->title,
                 "entreprise" => $request->entreprise,
                 "phone" => $request->phone,
@@ -343,8 +298,6 @@ class AnnonceController extends Controller
                 "dure_experience" => $request->dure_experience,
                 "comp_tech" => $request->comp_tech,
                 "aptitude_pro" => $request->aptitude_pro,
-                "category" => $request->category,
-                "place" => $request->place,
             ]);
             /*
             Mail::to('david.kouakou@agilestelecoms.com')

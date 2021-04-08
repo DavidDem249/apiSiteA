@@ -84,6 +84,7 @@ Route::get('/candidat/{postulant}', [PostulerController::class, 'show']);
 Route::get('/candidature-spontannee', [CarriereController::class, 'index']);
 
 Route::post('faire-annonce', [AnnonceController::class, 'store']);
+
 Route::put('annonce/update/{annonce_id}',[AnnonceController::class, 'update']);
 
 Route::post('recrutement',[CarriereController::class, 'store']);

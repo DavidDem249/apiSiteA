@@ -30,7 +30,7 @@ class Message extends Mailable
      */
     public function build()
     {
-        return $this->from("david.kouakou@agilestelecoms.com")
+        return $this->from("daouda.dembele@agilestelecoms.com")
                 ->subject('AT - DEMANDE POUR ÊTRE FORMATEUR')
                 ->view('emails.message');
     }

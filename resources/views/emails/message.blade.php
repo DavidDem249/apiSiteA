@@ -46,29 +46,25 @@
                                         <!-- section text ======-->
 
                                         <p style="line-height: 24px; margin-bottom:15px;">
-                                            NOM : {{ $data['nom'] }} PRENOM : {{ $data['prenom'] }},
+                                            NOM : {{ $data['nom'] }} 
+                                        </p>
+
+                                        <p style="line-height: 24px; margin-bottom:15px;">
+                                            PRENOM : {{ $data['prenom'] }}
                                         </p>
                                         
                                        <p style="line-height: 24px;margin-bottom:15px;">
-                                             MOBILE PHONE : {{ $data['phone'] }}
-                                        </p>
+                                            NUMERO : {{ $data['phone'] }}
+                                       </p>
+
+                                       <p style="line-height: 24px;margin-bottom:15px;">
+                                            ADRESSE EMAIL : {{ $data['email'] }}
+                                       </p>
+
+                                       <p style="line-height: 24px;margin-bottom:15px;">
+                                            DOMAINE DE FORMATION : {{ $data['domaine'] }}
+                                       </p>
                                        
-                                        <p style="line-height: 24px">
-                                            <span style="color:rgb(115,48,55); font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">DOMAINE DE FORMATION : {{ $data['domaine'] }},</br>
-                                            ADRESSE EMAIL : {{ $data['email'] }}</span>
-                                        </p>
-
-
-                                        <p style="line-height: 24px">
-                                            <span style="color:rgb(115,48,55); font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">
-                                            CURRICULUM VITAE : <embed src="{{ $data['cv'] }}" width=800 height=500 type='application/pdf'/></span>
-                                        </p>
-
-                                        <p style="line-height: 24px">
-                                            <span style="color:rgb(115,48,55); font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;">
-                                            DETAILS FORMATION : <embed src="{{ $data['details_formation'] }}" width=800 height=500 type='application/pdf'/></span>
-                                        </p>
-
                                     </td>
                                 </tr>
                             </table>

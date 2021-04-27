@@ -45,25 +45,55 @@ class FormateurController extends Controller
         
         if($data)
         {
-           //dd($data);
-            $formateur = new Formateur();
-            $formateur->nom = $data['nom'];
-            $formateur->prenom = $data['prenom'];
-            $formateur->phone = $data['phone'];
-            $formateur->email = $data['email'];
-            $formateur->domaine = $data['domaine'];
-            $formateur->save();
+            // 
+            if($request->hasFile('cv')){
+
+                $cv = $data['cv'];
+
+                $detail = $data['details_formation'];
+                //$nameCv = $cv->getClientOriginalName();
+                $cvName = date('YmdHis') . "." . $cv->getClientOriginalExtension();
+                $detailName = date('YmdHis') . "." . $detail->getClientOriginalExtension();
+
+                $pathCv = $cv->move('agilesRessources/formateurCv', $cvName);
+                $pathDetail = $detail->move('agilesRessources/detailsFormation', $detailName);
+
+                $link_url_cv = asset($pathCv);
+                $link_url_detail = asset($pathDetail);
+
+                $data['cv'] = $link_url_cv;
+                $data['details_formation'] = $link_url_detail;
+                
+                $formateur = new Formateur();
+                $formateur->nom = $data['nom'];
+                $formateur->prenom = $data['prenom'];
+                $formateur->phone = $data['phone'];
+                $formateur->email = $data['email'];
+                $formateur->lien_linkdin = $data['lien_linkdin'] ?? "";
+                $formateur->domaine = $data['domaine'];
+                $formateur->technologie = $data['technologie'];
+                $formateur->titre_formation = $data['titre_formation'];
+                $formateur->details_formation = $link_url_detail;
+                $formateur->cv = $link_url_cv;
+                $formateur->save();
 
 
-            Mail::to('daouda.dembele@agilestelecoms.com')
-                //->cc('daouda.dembele@agilestelecoms.com')
-                ->Send(new Message($data));
+                Mail::to('david.kouakou@agilestelecoms.com')
+                    ->cc('daouda.dembele@agilestelecoms.com')
+                    ->Send(new Message($data));
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Votre demande a bien été effectuée avec succès',
-                'data' => new FormateurResource($formateur),
-            ], 200);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Votre demande a bien été effectuée avec succès',
+                ], 200);
+
+
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Veilliez choisir un fichier valide svp',
+                ], 400);
+            }
 
         }else{
             return response()->json([

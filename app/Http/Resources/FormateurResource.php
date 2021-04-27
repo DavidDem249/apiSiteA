@@ -14,6 +14,14 @@ class FormateurResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        // return parent::toArray($request);
+        return [
+            'nom' => $this->nom,
+            'prenom' => $this->prenom,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'domaine' => $this->domaine,
+            'date_creation' => $this->created_at->format('d-m-Y'),
+        ];
     }
 }

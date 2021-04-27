@@ -41,6 +41,8 @@ class FormateurController extends Controller
             'phone' => 'required|min:8',
             'email' => 'required|email|max:255',
             'domaine' => 'required',
+            'pays' => 'nullable',
+            'ville' => 'nullable',
         ]);
         
         if($data)
@@ -52,6 +54,8 @@ class FormateurController extends Controller
             $formateur->phone = $data['phone'];
             $formateur->email = $data['email'];
             $formateur->domaine = $data['domaine'];
+            $formateur->pays = $data['pays'];
+            $formateur->ville = $data['ville'];
             $formateur->save();
 
 

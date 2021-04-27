@@ -21,6 +21,8 @@ class FormateurResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'domaine' => $this->domaine,
+            'pays' => $this->pays,
+            'ville' => $this->ville,
             'date_creation' => $this->created_at->format('d-m-Y'),
         ];
     }

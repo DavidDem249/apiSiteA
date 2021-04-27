@@ -70,6 +70,16 @@
                             </table>
                         </td>
                     </tr>
+                    <tr>
+                        <div style="display: flex; flex-direction: column;">
+                           <p style="line-height: 24px;margin-bottom:15px;">
+                                Pays : {{ $data['pays'] }}
+                            </p>
+                            <p style="line-height: 24px;margin-bottom:15px;">
+                                Ville : {{ $data['ville'] }}
+                            </p>
+                        </div>
+                    </tr>
                 </table>
 
             </td>

@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\ValidationController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -61,10 +63,14 @@ Route::apiResource('plan', PlanController::class);
 Route::apiResource('demande', DemandesController::class);
 
 // });
-Route::get('formateur', [FormateurController::class, 'index']);
-//Route::post('store-formateur', [FormateurController::class, 'store']);
 
+// ======================================================= //
+Route::get('formateur', [FormateurController::class, 'index']);
+Route::post('validation-compte/{formateur}', [ValidationController::class, 'validateCompte']);
+Route::post('create-compte', [ValidationController::class, 'createCompte']);
 Route::post('agiles-formateur', [FormateurController::class, 'candidater']);
+
+// ======================================================  //
 
 Route::post('contact', [ContactController::class, 'store']);
 

@@ -14,12 +14,16 @@
 
                             <div style="line-height: 35px">
 
-                                DEMANDE POUR ÊTRE FORMATEUR
+                                PARAMETRES DE CONNEXION
 
                             </div>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td align="left" style="color: #888888; font-size: 16px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 24px;">
+                            Bonjour {{ $data['name'] }}, Merci de trouver ci-joint les paramètres de connexion.
+                        </td>
+                    </tr>
                     <tr>
                         <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
                     </tr>
@@ -46,32 +50,19 @@
                                         <!-- section text ======-->
 
                                         <p style="line-height: 24px; margin-bottom:15px;">
-                                            NOM : {{ $data['nom'] }} 
+                                            EMAIL : {{ $data['email'] }} 
                                         </p>
 
                                         <p style="line-height: 24px; margin-bottom:15px;">
-                                            PRENOM : {{ $data['prenom'] }}
-                                        </p>
-                                        
-                                       <p style="line-height: 24px;margin-bottom:15px;">
-                                            NUMERO : {{ $data['phone'] }}
-                                       </p>
-
-                                       <p style="line-height: 24px;margin-bottom:15px;">
-                                            ADRESSE EMAIL : {{ $data['email'] }}
-                                       </p>
-
-                                       <p style="line-height: 24px;margin-bottom:15px;">
-                                            DOMAINE DE FORMATION : {{ $data['domaine'] }}
-                                       </p>
-
-                                       <p style="line-height: 24px;margin-bottom:15px;">
-                                            Pays : {{ $data['pays'] ?? "Non indiqué" }}
-                                        </p>
-                                        <p style="line-height: 24px;margin-bottom:15px;">
-                                            Ville : {{ $data['ville'] ?? "Non indiqué" }}
+                                            PASSWORD : {{ $data['password'] }}
                                         </p>
                                        
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td align="left" style="color: #888888; font-size: 16px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 24px;">
+                                        <a href="#">Connectez-vous</a>
                                     </td>
                                 </tr>
                             </table>

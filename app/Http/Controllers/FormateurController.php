@@ -18,7 +18,7 @@ class FormateurController extends Controller
      */
     public function index()
     {
-        $formateur = Formateur::orderby('created_at','DESC')->get();
+        $formateur = Formateur::orderby('created_at','DESC')->where('status', 0)->get();
         //dd($formateur);
         return FormateurResource::collection($formateur);
     }
@@ -36,11 +36,11 @@ class FormateurController extends Controller
         // 'cv' => 'required|mimes:doc,docx,pdf,txt',
         //dd($request->all());
         $data = $request->validate([
-            'nom' => 'required|min:3',
-            'prenom' => 'required|min:3',
-            'phone' => 'required|min:8',
-            'email' => 'required|email|max:255',
-            'domaine' => 'required',
+            'nom' => 'nullable|min:3',
+            'prenom' => 'nullable|min:3',
+            'phone' => 'nullable|min:8',
+            'email' => 'nullable|email|max:255',
+            'domaine' => 'nullable',
             'pays' => 'nullable',
             'ville' => 'nullable',
         ]);
@@ -53,9 +53,9 @@ class FormateurController extends Controller
             $formateur->prenom = $data['prenom'];
             $formateur->phone = $data['phone'];
             $formateur->email = $data['email'];
-            $formateur->domaine = $data['domaine'];
-            $formateur->pays = $data['pays'];
-            $formateur->ville = $data['ville'];
+            $formateur->domaine = $data['domaine'] ?? "";
+            $formateur->pays = $data['pays'] ?? "";
+            $formateur->ville = $data['ville'] ?? "";
             $formateur->save();
 
 

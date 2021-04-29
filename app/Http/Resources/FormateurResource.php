@@ -16,6 +16,7 @@ class FormateurResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
+            'id' => $this->id,
             'nom' => $this->nom,
             'prenom' => $this->prenom,
             'email' => $this->email,
@@ -24,6 +25,7 @@ class FormateurResource extends JsonResource
             'pays' => $this->pays,
             'ville' => $this->ville,
             'date_creation' => $this->created_at->format('d-m-Y'),
+            'status' => $this->status,
         ];
     }
 }

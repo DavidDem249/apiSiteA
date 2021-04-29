@@ -64,7 +64,7 @@ class AuthController extends Controller
     {
 
 	    
-	 //    $credentials = [
+	    // $credentials = [
 		// 	'email' => 'admin@gmail.com',
 		// 	'password' => 'password',
 		// ];
@@ -117,7 +117,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-    	//$user = auth()->user();
+    	// $user = auth()->user();
         return response()->json(auth()->user());
     }
 
